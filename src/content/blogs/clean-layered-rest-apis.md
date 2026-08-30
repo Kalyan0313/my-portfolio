@@ -2,7 +2,7 @@
 id: rest-api-layered-architecture
 title: "Designing Clean Layered REST APIs with Express.js & TypeScript"
 date: "Jul 2026"
-readTime: "9 min read"
+readTime: "12 min read"
 topic: "Architecture & API Design"
 tags:
   - Express
@@ -21,155 +21,435 @@ keyTakeaways:
 
 # Designing Clean Layered REST APIs with Express.js & TypeScript
 
-As a backend developer, writing an API that works is usually not the difficult part. The difficult part is keeping the code maintainable, testable, and understandable as features grow.
+As a backend developer, writing an API that works is usually not the difficult part.
 
-A layered architecture enforces clean separation of concerns:
+The difficult part is keeping the code maintainable when the application grows.
+
+A small Express.js application can start like this:
 
 ```text
-Client ──→ Routes ──→ Middleware (Auth/Zod) ──→ Controllers ──→ Services ──→ Repositories ──→ Database
-Client ←── Response ←────────────────────────── Controllers ←── Services ←── Repositories ←── Database
+Request
+   ↓
+Route
+   ↓
+Controller
+   ↓
+Database
+   ↓
+Response
 ```
 
-> **The Core Rule:** Controllers handle HTTP. Services handle business logic. Repositories handle data access.
+At first, this feels perfectly fine.
+
+But as features increase, controllers can quickly become responsible for everything:
+
+```text
+Controller
+├── Validation
+├── Authentication
+├── Business logic
+├── Database queries
+├── Error handling
+├── External API calls
+├── Response formatting
+└── Logging
+```
+
+This is where the code becomes difficult to test, modify, and understand.
+
+A layered architecture helps separate these responsibilities.
+
+The goal isn't to create dozens of folders or follow architecture rules blindly.
+
+The goal is simple:
+
+> **Each layer should have a clear responsibility.**
 
 ---
 
-# 1. The "Fat Controller" Problem
+# 1. What Is a Layered Architecture?
 
-When validation, database queries, password hashing, emails, and response formatting are crammed into routing callbacks, code becomes fragile and impossible to unit test.
+A common structure for an Express.js + TypeScript REST API is:
 
-### The Anti-Pattern:
+```text
+Client
+  ↓
+Routes
+  ↓
+Controllers
+  ↓
+Services
+  ↓
+Repositories
+  ↓
+Database
+```
+
+Each layer has a specific job.
+
+### Route
+Defines the endpoint and connects middleware to the controller.
+
+### Controller
+Handles HTTP-specific concerns.
+
+### Service
+Contains business logic.
+
+### Repository
+Handles data access.
+
+### Database
+Stores persistent data.
+
+This creates separation between:
+
+```text
+HTTP logic
+Business logic
+Data access
+```
+
+---
+
+# 2. Why Not Put Everything in the Controller?
+
+Consider this controller:
+
 ```typescript
-// ❌ ANTI-PATTERN: Route handler doing everything
 app.post("/users", async (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password) return res.status(400).json({ message: "Invalid" });
+    const { name, email, password } = req.body;
 
-  const existing = await db.user.findUnique({ where: { email } });
-  if (existing) return res.status(409).json({ message: "User exists" });
+    if (!name || !email || !password) {
+        return res.status(400).json({
+            message: "Invalid request"
+        });
+    }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await db.user.create({ data: { name, email, password: hashedPassword } });
-  await sendWelcomeEmail(user.email);
+    const existingUser = await db.user.findUnique({
+        where: { email }
+    });
 
-  return res.status(201).json(user);
+    if (existingUser) {
+        return res.status(409).json({
+            message: "User already exists"
+        });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await db.user.create({
+        data: {
+            name,
+            email,
+            password: hashedPassword
+        }
+    });
+
+    await sendWelcomeEmail(user.email);
+
+    return res.status(201).json(user);
+});
+```
+
+This works. But the controller is doing too much.
+
+It is responsible for:
+* Reading HTTP input
+* Validation
+* Checking existing users
+* Password hashing
+* Database access
+* Sending emails
+* Business rules
+* HTTP response handling
+
+As the application grows, this becomes difficult to maintain.
+
+---
+
+# 3. A Better Structure
+
+A clean project could look like:
+
+```text
+src/
+│
+├── routes/
+│   └── user.routes.ts
+│
+├── controllers/
+│   └── user.controller.ts
+│
+├── services/
+│   └── user.service.ts
+│
+├── repositories/
+│   └── user.repository.ts
+│
+├── middlewares/
+│   ├── auth.middleware.ts
+│   ├── error.middleware.ts
+│   └── validation.middleware.ts
+│
+├── validators/
+│   └── user.validator.ts
+│
+├── types/
+│   └── user.types.ts
+│
+├── utils/
+│   ├── logger.ts
+│   └── response.ts
+│
+├── config/
+│   └── env.ts
+│
+├── app.ts
+└── server.ts
+```
+
+The exact folder structure isn't important. The separation of responsibilities is.
+
+---
+
+# 4. Route Layer
+
+The route layer defines the API endpoints.
+
+```typescript
+router.post(
+    "/users",
+    validate(createUserSchema),
+    userController.createUser
+);
+```
+
+The route should ideally answer:
+> "Which endpoint exists, which middleware should execute, and which controller handles it?"
+
+It shouldn't contain business logic.
+
+---
+
+# 5. Controller Layer
+
+The controller is responsible for HTTP-related work.
+
+```text
+Request ──→ Controller ──→ Service ──→ Controller ──→ Response
+```
+
+Example:
+
+```typescript
+export class UserController {
+
+    constructor(
+        private readonly userService: UserService
+    ) {}
+
+    createUser = async (
+        req: Request,
+        res: Response
+    ) => {
+
+        const user = await this.userService.createUser(
+            req.body
+        );
+
+        return res.status(201).json({
+            data: user
+        });
+    };
+}
+```
+
+Notice what the controller doesn't know. It doesn't know how the user is stored, how the password is hashed, which database is being used, or how duplicate users are detected. Those concerns belong elsewhere.
+
+---
+
+# 6. Service Layer
+
+The service layer is where the application's business logic lives.
+
+```typescript
+export class UserService {
+
+    constructor(
+        private readonly userRepository: UserRepository
+    ) {}
+
+    async createUser(data: CreateUserInput) {
+
+        const existingUser =
+            await this.userRepository.findByEmail(
+                data.email
+            );
+
+        if (existingUser) {
+            throw new Error("User already exists");
+        }
+
+        const hashedPassword =
+            await bcrypt.hash(data.password, 10);
+
+        return this.userRepository.create({
+            ...data,
+            password: hashedPassword
+        });
+    }
+}
+```
+
+This layer should ideally not depend on Express `req` or `res` objects.
+
+---
+
+# 7. Repository Layer
+
+The repository is responsible for communicating with the database.
+
+```typescript
+export class UserRepository {
+
+    async findByEmail(email: string) {
+
+        return prisma.user.findUnique({
+            where: { email }
+        });
+    }
+
+    async create(data: CreateUserData) {
+
+        return prisma.user.create({
+            data
+        });
+    }
+}
+```
+
+---
+
+# 8. The Complete Request Flow
+
+```text
+POST /api/users
+        ↓
+      Route
+        ↓
+   Validation
+        ↓
+    Controller
+        ↓
+     Service
+        ↓
+   Repository
+        ↓
+     Database
+```
+
+---
+
+# 9. TypeScript & DTOs (Data Transfer Objects)
+
+DTOs define the expected contract between layers:
+
+```typescript
+interface CreateUserDto {
+    name: string;
+    email: string;
+    password: string;
+}
+
+interface UserResponseDto {
+    id: string;
+    name: string;
+    email: string;
+}
+```
+
+---
+
+# 10. Runtime Validation with Zod
+
+TypeScript types disappear at runtime. Use Zod schemas in middleware before reaching the controller:
+
+```typescript
+import { z } from "zod";
+
+export const createUserSchema = z.object({
+    name: z.string().min(2),
+    email: z.string().email(),
+    password: z.string().min(8)
 });
 ```
 
 ---
 
-# 2. Modular Production Structure
-
-Organizing backends by business feature modules scales cleanly:
-
-```text
-src/
-├── modules/
-│   ├── users/
-│   │   ├── user.routes.ts
-│   │   ├── user.controller.ts
-│   │   ├── user.service.ts
-│   │   ├── user.repository.ts
-│   │   ├── user.schema.ts
-│   │   └── user.types.ts
-│   └── orders/
-│       ├── order.routes.ts
-│       ├── order.controller.ts
-│       ├── order.service.ts
-│       └── order.repository.ts
-├── middlewares/
-│   ├── auth.middleware.ts
-│   ├── error.middleware.ts
-│   └── validate.middleware.ts
-├── config/ (env.ts)
-├── app.ts
-└── server.ts
-```
-
----
-
-# 3. Clean Implementation: Controller, Service & Repository
-
-### The Thin Controller:
-```typescript
-export class UserController {
-  constructor(private readonly userService: UserService) {}
-
-  createUser = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const user = await this.userService.createUser(req.body);
-      return res.status(201).json({ success: true, data: user });
-    } catch (err) {
-      next(err); // Forward to global error handler
-    }
-  };
-}
-```
-
-### The Pure Service (Express-Agnostic):
-```typescript
-export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
-
-  async createUser(data: CreateUserDto): Promise<UserResponseDto> {
-    const existing = await this.userRepository.findByEmail(data.email);
-    if (existing) {
-      throw new ConflictError("A user with this email already exists");
-    }
-
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-    const user = await this.userRepository.create({
-      ...data,
-      password: hashedPassword
-    });
-
-    return { id: user.id, name: user.name, email: user.email };
-  }
-}
-```
-
-### The Repository (Data Access):
-```typescript
-export class UserRepository {
-  async findByEmail(email: string): Promise<User | null> {
-    return prisma.user.findUnique({ where: { email } });
-  }
-
-  async create(data: CreateUserData): Promise<User> {
-    return prisma.user.create({ data });
-  }
-}
-```
-
----
-
-# 4. Centralized Error Boundary
+# 11. Centralized Error Handling
 
 ```typescript
 export class AppError extends Error {
-  constructor(public message: string, public statusCode: number = 500) {
-    super(message);
-  }
+    constructor(
+        public message: string,
+        public statusCode: number = 500
+    ) {
+        super(message);
+    }
 }
 
 export class NotFoundError extends AppError {
-  constructor(message = "Resource not found") {
-    super(message, 404);
-  }
+    constructor(message = "Resource not found") {
+        super(message, 404);
+    }
 }
 
 export class ConflictError extends AppError {
-  constructor(message = "Conflict detected") {
-    super(message, 409);
-  }
+    constructor(message = "Conflict detected") {
+        super(message, 409);
+    }
 }
 
-export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-  if (err instanceof AppError) {
-    return res.status(err.statusCode).json({ success: false, error: err.message });
-  }
+// Global Express Handler
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    if (err instanceof AppError) {
+        return res.status(err.statusCode).json({
+            success: false,
+            error: err.message
+        });
+    }
 
-  console.error("[UNHANDLED ERROR]", err);
-  return res.status(500).json({ success: false, error: "Internal Server Error" });
-};
+    console.error("[UNHANDLED]", err);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+});
 ```
+
+---
+
+# 12. Dependency Injection & Unit Testing
+
+```typescript
+describe("UserService.createUser", () => {
+    it("should throw ConflictError if email exists", async () => {
+        const mockRepo = {
+            findByEmail: async () => ({ id: "1", email: "test@example.com" } as any),
+            create: async (data: any) => data
+        };
+
+        const service = new UserService(mockRepo as any);
+        await expect(service.createUser({ name: "Kalyan", email: "test@example.com", password: "secret" }))
+            .rejects.toThrow("User already exists");
+    });
+});
+```
+
+---
+
+# 13. The Main Takeaway
+
+> **Controllers handle HTTP.**
+> **Services handle business logic.**
+> **Repositories handle data access.**
+
+Clean architecture isn't about writing more code. **It's about making the code easier to change.**
