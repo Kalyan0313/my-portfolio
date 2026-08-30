@@ -1,8 +1,26 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { X, Share2, Check, Maximize2, Minimize2, List } from 'lucide-react';
+import mermaid from 'mermaid';
 import type { EngineeringNote } from '../../types';
 import { useModalEscape, useCopyToClipboard } from '../../hooks';
 import { fireCyberpunkConfetti } from '../../utils/confetti';
+
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'dark',
+  themeVariables: {
+    darkMode: true,
+    background: '#080808',
+    primaryColor: 'rgba(245, 158, 11, 0.20)',
+    primaryTextColor: '#FFFFFF',
+    primaryBorderColor: '#F59E0B',
+    lineColor: '#10B981',
+    secondaryColor: '#111827',
+    tertiaryColor: '#0A0A0A',
+    fontFamily: 'var(--font-mono, monospace)',
+    fontSize: '13px'
+  }
+});
 
 interface NoteModalProps {
   note: EngineeringNote | null;
@@ -103,6 +121,18 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
       pre.style.position = 'relative';
       pre.appendChild(button);
     });
+
+    // Render any Mermaid Flowcharts / Architecture Diagrams
+    const mermaidNodes = contentAreaRef.current.querySelectorAll<HTMLElement>('.mermaid');
+    if (mermaidNodes.length > 0) {
+      try {
+        mermaid.run({
+          nodes: Array.from(mermaidNodes),
+        });
+      } catch (err) {
+        console.error('Mermaid render error:', err);
+      }
+    }
   }, [note, fontSize]);
 
   if (!note) return null;

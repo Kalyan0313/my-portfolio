@@ -31,6 +31,10 @@ customRenderer.heading = function ({ tokens, depth }: any) {
 };
 
 customRenderer.code = function ({ text, lang }: { text: string; lang?: string }) {
+  if (lang === 'mermaid') {
+    return `<div class="mermaid-container"><div class="mermaid">${text}</div></div>\n`;
+  }
+
   const language = lang && hljs.getLanguage(lang) ? lang : '';
   let highlighted = '';
 
