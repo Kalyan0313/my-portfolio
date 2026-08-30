@@ -256,45 +256,247 @@ app.get('/products', async (req, res) => {
     id: 'rest-api-layered-architecture',
     title: 'Designing Clean Layered REST APIs with Express.js & TypeScript',
     date: 'Jul 2026',
-    readTime: '5 min read',
+    readTime: '9 min read',
     topic: 'Architecture & API Design',
-    tags: ['Express', 'TypeScript', 'Clean Architecture', 'REST'],
+    tags: ['Express', 'TypeScript', 'Clean Architecture', 'REST', 'API Design', 'Backend'],
     summary:
-      'Structuring Express applications with Controllers, Services, and Data Access layers to maintain testability, clear separation of concerns, and centralized error handling.',
+      'A comprehensive architectural guide to building maintainable Express.js & TypeScript backends using Routes, Controllers, Services, Repositories, DTOs, Zod runtime validation, and centralized error boundaries.',
     keyTakeaways: [
-      'Controllers should only handle HTTP concerns: request parsing, status codes, and response formatting.',
-      'Business logic belongs in Services, completely agnostic of `req` and `res` objects.',
-      'Centralize error handling with custom `AppError` classes and a unified error middleware.'
+      'Strict Layered Separation: Routes define endpoints, Controllers handle HTTP, Services own business logic, and Repositories handle data access.',
+      'Express-Agnostic Services: Services should accept typed DTOs and never interact directly with req or res objects.',
+      'Runtime Validation with Zod: TypeScript types disappear at runtime; use schema validation middleware before the controller.',
+      'Centralized Error Handling: Throw custom AppError/NotFoundError instances and format uniform JSON responses in error middleware.'
     ],
     contentSections: [
       {
-        heading: 'Layered Separation of Concerns',
-        text: 'A common pitfall in Express applications is writing database queries and business validation directly inside routing handler functions. By splitting code into Routes -> Controllers -> Services -> Repositories, each piece can be unit-tested without mocking HTTP requests.',
+        heading: '1. What Is a Layered Architecture?',
+        text: 'As a backend developer, writing an API that works is usually not the difficult part. The difficult part is keeping the code maintainable, testable, and understandable as features grow.\n\nIn a standard layered architecture, each layer has a single, clear responsibility:\n• Routes: Define endpoints and attach middleware.\n• Controllers: Handle HTTP concerns (req/res parsing, status codes).\n• Services: Own business rules and domain logic (Express-agnostic).\n• Repositories: Abstract data access and database operations.\n• Database: Stores persistent records.',
+        codeSnippet: {
+          language: 'text',
+          caption: 'Layered Request / Response Flow',
+          code: `Client ──→ Routes ──→ Middleware (Auth/Zod) ──→ Controllers ──→ Services ──→ Repositories ──→ Database
+Client ←── Response ←────────────────────────── Controllers ←── Services ←── Repositories ←── Database`
+        }
+      },
+      {
+        heading: '2. The "Fat Controller" Problem',
+        text: 'When all logic (validation, DB queries, password hashing, emails, error handling) is dumped directly into route handler functions, the code becomes impossible to unit-test and prone to regressions.',
         codeSnippet: {
           language: 'typescript',
-          caption: 'Standardized Async Handler & Error Boundary',
-          code: `// Custom Operational Error Class
-export class AppError extends Error {
-  constructor(
-    public message: string,
-    public statusCode: number = 500,
-    public isOperational: boolean = true
-  ) {
-    super(message);
-    Error.captureStackTrace(this, this.constructor);
-  }
-}
+          caption: 'Fat Controller Anti-Pattern (Doing Too Much)',
+          code: `// ANTI-PATTERN: Route handler mixing HTTP, DB, and business logic
+app.post('/users', async (req, res) => {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) return res.status(400).json({ message: 'Invalid' });
 
-// Higher-order wrapper to eliminate repetitive try/catch blocks
-export const asyncHandler = (fn: Function) => 
-  (req: Request, res: Response, next: NextFunction) => {
-    Promise.resolve(fn(req, res, next)).catch(next);
+  const existing = await db.user.findUnique({ where: { email } });
+  if (existing) return res.status(409).json({ message: 'User exists' });
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = await db.user.create({ data: { name, email, password: hashedPassword } });
+  await sendWelcomeEmail(user.email);
+
+  return res.status(201).json(user);
+});`
+        }
+      },
+      {
+        heading: '3. Clean Production Project Layout',
+        text: 'Separating technical concerns or organizing by business domain modules keeps the codebase scalable:',
+        codeSnippet: {
+          language: 'text',
+          caption: 'Modular Feature-Based Architecture',
+          code: `src/
+├── modules/
+│   ├── users/
+│   │   ├── user.routes.ts
+│   │   ├── user.controller.ts
+│   │   ├── user.service.ts
+│   │   ├── user.repository.ts
+│   │   ├── user.schema.ts
+│   │   └── user.types.ts
+│   └── orders/
+│       ├── order.routes.ts
+│       ├── order.controller.ts
+│       ├── order.service.ts
+│       └── order.repository.ts
+├── middlewares/
+│   ├── auth.middleware.ts
+│   ├── error.middleware.ts
+│   └── validate.middleware.ts
+├── config/ (env.ts)
+├── app.ts (Express setup)
+└── server.ts (Port listener)`
+        }
+      },
+      {
+        heading: '4. The Route Layer (Clean Endpoint Declarations)',
+        text: 'Routes should only connect endpoints to middleware and controller methods without embedding logic.',
+        codeSnippet: {
+          language: 'typescript',
+          caption: 'Declarative Route Definitions',
+          code: `import { Router } from 'express';
+import { UserController } from './user.controller';
+import { validate } from '../../middlewares/validate.middleware';
+import { createUserSchema } from './user.schema';
+
+const router = Router();
+router.post('/users', validate(createUserSchema), userController.createUser);
+export default router;`
+        }
+      },
+      {
+        heading: '5. The Controller Layer (Thin HTTP Translation)',
+        text: 'Controllers parse HTTP inputs, invoke the corresponding service method, and format the HTTP response. They contain zero database queries or password hashing logic.',
+        codeSnippet: {
+          language: 'typescript',
+          caption: 'Thin Controller Implementation',
+          code: `export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  createUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = await this.userService.createUser(req.body);
+      return res.status(201).json({ success: true, data: user });
+    } catch (err) {
+      next(err); // Forward to centralized error middleware
+    }
+  };
+}`
+        }
+      },
+      {
+        heading: '6. The Service Layer (Express-Agnostic Business Logic)',
+        text: 'The Service layer encapsulates all business decisions (e.g., checking uniqueness, hashing passwords, calculating totals). Services should never reference req or res objects, making them purely testable.',
+        codeSnippet: {
+          language: 'typescript',
+          caption: 'Pure Business Logic Service',
+          code: `export class UserService {
+  constructor(private readonly userRepository: UserRepository) {}
+
+  async createUser(data: CreateUserDto): Promise<UserResponseDto> {
+    const existing = await this.userRepository.findByEmail(data.email);
+    if (existing) {
+      throw new ConflictError('A user with this email already exists');
+    }
+
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const user = await this.userRepository.create({
+      ...data,
+      password: hashedPassword
+    });
+
+    // Return sanitized response DTO (no password hash)
+    return { id: user.id, name: user.name, email: user.email };
+  }
+}`
+        }
+      },
+      {
+        heading: '7. The Repository Layer (Data Access Abstraction)',
+        text: 'Repositories handle database communication (Prisma, Mongoose, TypeORM, raw SQL). The service only interacts with clean repository methods (`findByEmail`, `create`, `findById`).',
+        codeSnippet: {
+          language: 'typescript',
+          caption: 'Repository Implementation',
+          code: `export class UserRepository {
+  async findByEmail(email: string): Promise<User | null> {
+    return prisma.user.findUnique({ where: { email } });
+  }
+
+  async create(data: CreateUserData): Promise<User> {
+    return prisma.user.create({ data });
+  }
+}`
+        }
+      },
+      {
+        heading: '8. Runtime Schema Validation with Zod vs TypeScript Types',
+        text: 'TypeScript types disappear at compilation time and cannot validate external HTTP payloads at runtime. Using runtime validation schemas (Zod/Joi) in a validation middleware guarantees payload integrity before the controller runs.',
+        codeSnippet: {
+          language: 'typescript',
+          caption: 'Zod Schema Validation Middleware',
+          code: `import { z } from 'zod';
+
+export const createUserSchema = z.object({
+  body: z.object({
+    name: z.string().min(2, 'Name must be at least 2 characters'),
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters')
+  })
+});
+
+export const validate = (schema: z.ZodSchema) => 
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await schema.parseAsync({ body: req.body, query: req.query, params: req.params });
+      next();
+    } catch (error) {
+      next(error);
+    }
   };`
         }
       },
       {
-        heading: 'Unified Error Middleware',
-        text: 'The centralized error handler inspects whether an error is an operational `AppError` or an unhandled exception. In development, it prints stack traces; in production, it sanitizes internal details while returning clear JSON error payloads with matching HTTP status codes.'
+        heading: '9. Centralized Error Handling & Custom Error Classes',
+        text: 'Instead of repetitive try/catch blocks in every controller, define typed operational error classes (`NotFoundError`, `ConflictError`, `UnauthorizedError`) and handle them centrally in an error middleware.',
+        codeSnippet: {
+          language: 'typescript',
+          caption: 'Operational Error Hierarchy & Global Error Handler',
+          code: `export class AppError extends Error {
+  constructor(public message: string, public statusCode: number = 500) {
+    super(message);
+  }
+}
+
+export class NotFoundError extends AppError {
+  constructor(message = 'Resource not found') {
+    super(message, 404);
+  }
+}
+
+export class ConflictError extends AppError {
+  constructor(message = 'Conflict detected') {
+    super(message, 409);
+  }
+}
+
+// Centralized Express Error Middleware
+export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({ success: false, error: err.message });
+  }
+
+  console.error('[UNHANDLED EXCEPTION]', err);
+  return res.status(500).json({ success: false, error: 'Internal Server Error' });
+};`
+        }
+      },
+      {
+        heading: '10. Dependency Injection & Painless Unit Testing',
+        text: 'By injecting repositories into services via constructors, unit tests can provide mock repositories and verify business logic in milliseconds without spinning up a real database or HTTP server.',
+        codeSnippet: {
+          language: 'typescript',
+          caption: 'Unit Testing with Mock Repositories',
+          code: `describe('UserService.createUser', () => {
+  it('should throw ConflictError if email already exists', async () => {
+    const mockRepo: Partial<UserRepository> = {
+      findByEmail: async () => ({ id: '1', email: 'test@example.com' } as any)
+    };
+
+    const service = new UserService(mockRepo as UserRepository);
+    await expect(service.createUser({ name: 'Kalyan', email: 'test@example.com', password: 'password123' }))
+      .rejects.toThrow(ConflictError);
+  });
+});`
+        }
+      },
+      {
+        heading: '11. app.ts vs server.ts Separation & Config Fail-Fast',
+        text: 'Separate Express app setup (`app.ts`) from the HTTP listener (`server.ts`) to allow seamless integration testing with supertest without port conflicts. Validate all required environment variables at startup to fail fast on misconfiguration.'
+      },
+      {
+        heading: '12. Request IDs & Structured Observability',
+        text: 'Attach a unique `x-request-id` to incoming requests so that logs spanning multiple internal services (Controllers, Services, DB queries, Redis cache lookups) can be correlated effortlessly when troubleshooting production incidents.'
       }
     ]
   },
