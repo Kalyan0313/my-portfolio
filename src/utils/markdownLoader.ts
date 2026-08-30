@@ -1,13 +1,51 @@
 import { marked, Renderer } from 'marked';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
+import typescript from 'highlight.js/lib/languages/typescript';
+import sql from 'highlight.js/lib/languages/sql';
+import json from 'highlight.js/lib/languages/json';
+import bash from 'highlight.js/lib/languages/bash';
+import python from 'highlight.js/lib/languages/python';
 import type { EngineeringNote } from '../types';
 
-// Custom renderer to assign clean ID anchors to headings for TOC navigation
+// Register essential language definitions
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('js', javascript);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('ts', typescript);
+hljs.registerLanguage('sql', sql);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('sh', bash);
+hljs.registerLanguage('python', python);
+hljs.registerLanguage('py', python);
+
+// Custom renderer to assign clean ID anchors to headings and multi-colored syntax highlighting to code
 const customRenderer = new Renderer();
+
 customRenderer.heading = function ({ tokens, depth }: any) {
   const text = this.parser.parseInline(tokens);
   const plainText = text.replace(/<[^>]*>/g, '').trim();
   const slug = plainText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   return `<h${depth} id="${slug}">${text}</h${depth}>\n`;
+};
+
+customRenderer.code = function ({ text, lang }: { text: string; lang?: string }) {
+  const language = lang && hljs.getLanguage(lang) ? lang : '';
+  let highlighted = '';
+
+  try {
+    if (language) {
+      highlighted = hljs.highlight(text, { language, ignoreIllegals: true }).value;
+    } else {
+      highlighted = hljs.highlightAuto(text).value;
+    }
+  } catch {
+    highlighted = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  const langTag = language ? `<span class="code-lang-badge">${language.toUpperCase()}</span>` : '';
+  return `<div class="code-block-wrapper">${langTag}<pre><code class="hljs ${language}">${highlighted}</code></pre></div>\n`;
 };
 
 marked.setOptions({

@@ -360,18 +360,113 @@ button {
 }
 
 .blog-markdown-content pre {
-  background: #030303;
+  background: #050505;
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 16px 20px;
   padding-top: 36px;
-  margin: 24px 0;
+  margin: 20px 0;
   overflow-x: auto;
   font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1.6;
-  color: #e5e7eb;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: #e2e8f0;
   position: relative;
   border-radius: 2px;
+}
+
+.code-block-wrapper {
+  position: relative;
+  margin: 20px 0;
+}
+
+.code-lang-badge {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-green);
+  background: var(--accent-green-subtle);
+  border: 1px solid var(--accent-green-border);
+  padding: 2px 6px;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* Multi-colored Syntax Highlighting Themes */
+.hljs {
+  color: #e2e8f0;
+}
+
+/* Keywords & Tags (Pink / Coral) */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-doctag {
+  color: #F43F5E;
+  font-weight: 600;
+}
+
+/* Built-ins & Types (Purple / Violet) */
+.hljs-built_in,
+.hljs-type,
+.hljs-class,
+.hljs-name {
+  color: #A78BFA;
+  font-weight: 600;
+}
+
+/* Strings & Attributes (Emerald Green) */
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute {
+  color: #10B981;
+}
+
+/* Numbers & Literals (Gold / Amber) */
+.hljs-number,
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet {
+  color: #F59E0B;
+}
+
+/* Function Names & Titles (Electric Sky Blue) */
+.hljs-title,
+.hljs-title.function_,
+.hljs-function,
+.hljs-section {
+  color: #60A5FA;
+  font-weight: 600;
+}
+
+/* Variables, Params & Properties (Cyan / Ice Blue) */
+.hljs-attr,
+.hljs-property,
+.hljs-variable,
+.hljs-template-variable {
+  color: #38BDF8;
+}
+
+.hljs-params {
+  color: #E2E8F0;
+}
+
+/* Comments (Muted Slate / Italic) */
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion {
+  color: #64748B;
+  font-style: italic;
+}
+
+/* Meta, Preprocessor (Rose) */
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+  color: #FB7185;
 }
 
 /* 1-Click Code Copy Button */
