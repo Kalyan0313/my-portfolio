@@ -68,7 +68,22 @@ export function FAB() {
         aria-label="Quick actions menu"
         aria-expanded={isOpen}
       >
-        <MessageCircle size={24} />
+        {isOpen ? (
+          <span style={{ fontSize: "20px", fontWeight: 700, lineHeight: 1, color: "#0A0A0A" }}>✕</span>
+        ) : (
+          <span
+            style={{
+              fontSize: "22px",
+              fontWeight: 800,
+              fontFamily: "var(--font-display)",
+              letterSpacing: "-0.04em",
+              color: "#0A0A0A",
+              lineHeight: 1
+            }}
+          >
+            K
+          </span>
+        )}
       </button>
     </div>
   );
