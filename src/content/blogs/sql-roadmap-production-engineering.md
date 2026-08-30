@@ -255,10 +255,10 @@ Production databases handle concurrent traffic, scale, and operational realities
 
 Offset pagination degrades severely at scale:
 ```sql
--- ❌ Inefficient at high offsets (scans and discards 100,000 rows)
+-- Inefficient at high offsets (scans and discards 100,000 rows)
 SELECT * FROM orders ORDER BY id LIMIT 20 OFFSET 100000;
 
--- ✅ Keyset Pagination (Constant O(1) B-tree seek)
+-- Keyset Pagination (Constant O(1) B-tree seek)
 SELECT * FROM orders WHERE id > 100000 ORDER BY id LIMIT 20;
 ```
 
