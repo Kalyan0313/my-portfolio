@@ -36,7 +36,7 @@ Problem Input ──→ Constraint Analysis ──→ Identify Archetype ──�
 
 # Pattern 1: Two Pointers (Opposite & Same Direction)
 
-### 🧠 Mental Model
+### Mental Model
 When dealing with sorted arrays, palindromes, or linear sequences where searching pairs naively takes $O(N^2)$, maintaining two pointers converging inward or scanning conditionally reduces time complexity to $O(N)$.
 
 ```text
@@ -46,7 +46,7 @@ Left Pointer ──→                      ←── Right Pointer
 Sum = 1 + 15 = 16 > 15 ──→ Move Right Pointer Inward (Right--)
 ```
 
-### 💻 Canonical Template
+### Canonical Template
 ```typescript
 function twoPointersTemplate(arr: number[], target: number): number[] {
   let left = 0;
@@ -66,7 +66,7 @@ function twoPointersTemplate(arr: number[], target: number): number[] {
 }
 ```
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Two Sum II (Input Array Is Sorted):** Converge pointers inward based on sum comparison ($O(N)$ time, $O(1)$ space).
 2. **3Sum:** Sort array, fix index $i$, and run Two Pointers on the remaining subarray, skipping duplicates to avoid redundant triplets.
 3. **Container With Most Water:** Move the pointer with the shorter vertical line inward at each step, maximizing potential bounding area.
@@ -77,7 +77,7 @@ function twoPointersTemplate(arr: number[], target: number): number[] {
 
 # Pattern 2: Sliding Window (Fixed & Dynamic)
 
-### 🧠 Mental Model
+### Mental Model
 Used on contiguous subarrays or substrings. Instead of recalculating state from scratch for every window ($O(N \cdot K)$), expand the window with the `right` pointer and dynamically contract with the `left` pointer when constraints are violated ($O(N)$).
 
 ```text
@@ -86,7 +86,7 @@ Used on contiguous subarrays or substrings. Instead of recalculating state from 
       └───────┘  ──→ Move Left to maintain uniqueness
 ```
 
-### 💻 Canonical Template (Dynamic Window)
+### Canonical Template (Dynamic Window)
 ```typescript
 function dynamicSlidingWindow(s: string): number {
   let left = 0;
@@ -110,7 +110,7 @@ function dynamicSlidingWindow(s: string): number {
 }
 ```
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Maximum Sum Subarray of Size K:** Fixed-size window; slide by adding incoming element and subtracting outgoing element.
 2. **Longest Substring Without Repeating Characters:** Dynamic window storing last seen character indices in a Hash Map.
 3. **Minimum Window Substring:** Track character match count against pattern map; contract `left` aggressively once all target characters are satisfied.
@@ -121,7 +121,7 @@ function dynamicSlidingWindow(s: string): number {
 
 # Pattern 3: Fast & Slow Pointers (Floyd's Cycle Finding)
 
-### 🧠 Mental Model
+### Mental Model
 Two pointers moving through a sequence or linked list at different speeds (e.g., `slow` takes 1 step, `fast` takes 2 steps). If a cycle exists, `fast` is guaranteed to catch up to `slow` in $O(N)$ time and $O(1)$ auxiliary space.
 
 ```text
@@ -131,7 +131,7 @@ Head ──→ (1) ──→ (2) ──→ (3) ──→ (4)
 Slow: 1 step | Fast: 2 steps ──→ Collision occurs inside cycle
 ```
 
-### 💻 Canonical Template
+### Canonical Template
 ```typescript
 class ListNode {
   val: number;
@@ -152,7 +152,7 @@ function hasCycle(head: ListNode | null): boolean {
 }
 ```
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Linked List Cycle Detection:** Standard Floyd's collision check.
 2. **Middle of the Linked List:** When `fast` reaches the end, `slow` is precisely at the midpoint.
 3. **Linked List Cycle II (Find Start of Cycle):** After collision, reset one pointer to `head`; move both by 1 step to meet at cycle origin.
@@ -163,7 +163,7 @@ function hasCycle(head: ListNode | null): boolean {
 
 # Pattern 4: Monotonic Stack & Queue
 
-### 🧠 Mental Model
+### Mental Model
 Maintains elements in strictly increasing or decreasing order. When a new element violates the monotonicity, elements are popped. This allows finding the **Next Greater / Previous Smaller Element** in amortized $O(N)$ time instead of $O(N^2)$.
 
 ```text
@@ -176,7 +176,7 @@ Push 6 ──→ [1, 5, 6]
 Push 2 ──→ Pop 6, Pop 5 ──→ [1, 2] (Process popped heights)
 ```
 
-### 💻 Canonical Template
+### Canonical Template
 ```typescript
 function nextGreaterElement(nums: number[]): number[] {
   const result = new Array(nums.length).fill(-1);
@@ -193,7 +193,7 @@ function nextGreaterElement(nums: number[]): number[] {
 }
 ```
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Next Greater Element I & II:** Maintain a decreasing monotonic stack to find immediate greater items (handle circular array with `2N` iteration).
 2. **Daily Temperatures:** Calculate index difference `i - prevIndex` to find days until warmer temperature.
 3. **Largest Rectangle in Histogram:** Monotonic increasing stack to determine left and right boundaries for every bar height.
@@ -204,7 +204,7 @@ function nextGreaterElement(nums: number[]): number[] {
 
 # Pattern 5: Binary Search on Answer Space (Min-Max Feasibility)
 
-### 🧠 Mental Model
+### Mental Model
 Binary search is not just for finding an element in a sorted array. If the answer space is monotonic (i.e. `feasible(x) === true` implies `feasible(x + 1) === true`), you can binary search directly over the range $[min, max]$ in $O(\log(\text{range}) \cdot N)$.
 
 ```text
@@ -214,7 +214,7 @@ Feasibility Check:     [F, F, F, T,  T,   T]
                         First Feasible Value (Optimal Minimum)
 ```
 
-### 💻 Canonical Template
+### Canonical Template
 ```typescript
 function binarySearchAnswerSpace(low: number, high: number, isFeasible: (val: number) => boolean): number {
   let left = low;
@@ -234,7 +234,7 @@ function binarySearchAnswerSpace(low: number, high: number, isFeasible: (val: nu
 }
 ```
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Find First and Last Position of Element:** Standard binary search with boundary preservation.
 2. **Search in Rotated Sorted Array:** Determine which half is monotonically sorted and discard the irrelevant half.
 3. **Koko Eating Bananas:** Binary search over speed $k \in [1, \max(piles)]$ checking if $\sum \lceil pile / k \rceil \le h$.
@@ -245,7 +245,7 @@ function binarySearchAnswerSpace(low: number, high: number, isFeasible: (val: nu
 
 # Pattern 6: Top 'K' Elements (Heaps & Priority Queues)
 
-### 🧠 Mental Model
+### Mental Model
 To find the $K$ largest elements, maintain a **Min-Heap of size $K$**. Any incoming element larger than the root replaces it. After processing $N$ elements, the heap contains the $K$ largest elements in $O(N \log K)$ time and $O(K)$ space.
 
 ```text
@@ -257,7 +257,7 @@ Incoming 15 > 7 ──→ Pop 7, Push 15 ──→ [10, 15, 20]
 Result = [10, 15, 20]
 ```
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Kth Largest Element in an Array:** Min-Heap of size $K$ or QuickSelect in average $O(N)$ time.
 2. **Top K Frequent Elements:** Frequency map + Min-Heap or Bucket Sort by frequency.
 3. **Merge K Sorted Lists:** Min-Heap storing `(node.val, node)` across $K$ heads, popping the smallest and advancing in $O(N \log K)$.
@@ -268,11 +268,11 @@ Result = [10, 15, 20]
 
 # Pattern 7: Tree & Graph Traversal (DFS & BFS)
 
-### 🧠 Mental Model
+### Mental Model
 * **BFS (Queue):** Level-by-level shortest path in unweighted graphs or level-order tree exploration.
 * **DFS (Recursion/Stack):** Exhaustive path exploration, subtree calculations, cycle detection, and backtracking.
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Binary Tree Level Order Traversal:** Standard BFS with level-size tracking.
 2. **Binary Tree Right Side View:** BFS recording the last element in each level, or DFS visiting Right before Left.
 3. **Lowest Common Ancestor (LCA):** Post-order DFS bubbling up non-null nodes from left and right subtrees.
@@ -283,7 +283,7 @@ Result = [10, 15, 20]
 
 # Pattern 8: Backtracking (Combinatorial Search)
 
-### 🧠 Mental Model
+### Mental Model
 Explore all possible candidates by building incrementally. When a branch fails or reaches completion, backtrack by reverting the state.
 
 ```text
@@ -295,7 +295,7 @@ Decision Tree:
  [1,2]  [1,3]       [2,3]
 ```
 
-### 💻 Canonical Template
+### Canonical Template
 ```typescript
 function backtrackTemplate(nums: number[]): number[][] {
   const result: number[][] = [];
@@ -315,7 +315,7 @@ function backtrackTemplate(nums: number[]): number[][] {
 }
 ```
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Subsets (Power Set):** Include / exclude recursion tree.
 2. **Permutations:** Backtracking with a `visited` boolean array or in-place swapping.
 3. **Combination Sum:** Unbounded candidate reuse ($i$ instead of $i+1$) with target deduction.
@@ -326,10 +326,10 @@ function backtrackTemplate(nums: number[]): number[][] {
 
 # Pattern 9: Dynamic Programming (Memoization & Tabulation)
 
-### 🧠 Mental Model
+### Mental Model
 Break down complex problems into overlapping subproblems with optimal substructure. Store subproblem solutions in a memo table (Top-Down) or DP array (Bottom-Up).
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Climbing Stairs / House Robber:** 1D DP where $dp[i] = \max(dp[i-1], dp[i-2] + nums[i])$, optimized to $O(1)$ space.
 2. **Coin Change:** Unbounded Knapsack where $dp[amount] = 1 + \min(dp[amount - coin])$.
 3. **Longest Increasing Subsequence (LIS):** $O(N^2)$ DP or $O(N \log N)$ Patience Sorting using binary search tails.
@@ -340,11 +340,11 @@ Break down complex problems into overlapping subproblems with optimal substructu
 
 # Pattern 10: Topological Sort & Union-Find (Disjoint Sets)
 
-### 🧠 Mental Model
+### Mental Model
 * **Topological Sort (Kahn's Algorithm):** In-degree array + Queue for directed acyclic graphs (DAGs) to resolve build dependencies.
 * **Union-Find with Path Compression & Rank:** Near $O(1)$ amortized $(\alpha(N))$ connectivity and cycle detection in undirected graphs.
 
-### 🎯 5 Core Problems to Master
+### 5 Core Problems to Master
 1. **Course Schedule I & II:** Kahn's in-degree BFS or cycle-detecting DFS for valid topological ordering.
 2. **Alien Dictionary:** Build directed character graph from adjacent sorted dictionary words and perform topological sort.
 3. **Number of Connected Components:** Union-Find tracking component count reductions.
@@ -353,7 +353,7 @@ Break down complex problems into overlapping subproblems with optimal substructu
 
 ---
 
-# 🚀 The 5-Problem Mastery Roadmap Checklist
+# The 5-Problem Mastery Roadmap Checklist
 
 | Pattern | Mental Model | Time / Space Target | Key Trigger Clue |
 |---|---|---|---|

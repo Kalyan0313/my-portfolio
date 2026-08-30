@@ -826,7 +826,7 @@ Consider:
 ```text
 Node.js
    ↓
-Redis ❌
+Redis (Offline / Down)
 ```
 
 If Redis is unavailable, what should happen?

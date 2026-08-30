@@ -20,13 +20,13 @@
 
 ---
 
-## ⚡ Overview
+## Overview
 
 A performance-first, production-grade developer portfolio engineered with a modern **Cyberpunk Amber & Solar Gold** dark aesthetic. Built with React 19, TypeScript, and Vite, featuring in-depth architectural case studies, an extensible technical blog engine with real-time search, and a zero-dependency client-side router with deep-linking support.
 
 ---
 
-## 🚀 Key Features & Engineering Highlights
+## Key Features & Engineering Highlights
 
 - **Cyberpunk Amber & Gold Design System**: Built with clean CSS variables, subtle radial ambient glows, glassmorphism overlays, and monospace terminal typography (`Space Grotesk`, `Ubuntu Mono`, `JetBrains Mono`).
 - **Dynamic Role Switcher**: Interactive role tabs in the Hero section dynamically re-render titles, statuses, and context.
@@ -43,7 +43,7 @@ A performance-first, production-grade developer portfolio engineered with a mode
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Layer | Technologies & Tools |
 |---|---|
@@ -56,7 +56,7 @@ A performance-first, production-grade developer portfolio engineered with a mode
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 my-portfolio/
@@ -100,7 +100,7 @@ my-portfolio/
 
 ---
 
-## 💻 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v18.0.0 or higher recommended)
@@ -137,7 +137,7 @@ my-portfolio/
 
 ---
 
-## 📬 Contact & Connect
+## Contact & Connect
 
 - **Name**: Kalyan Mahato
 - **Role**: Full Stack Developer
