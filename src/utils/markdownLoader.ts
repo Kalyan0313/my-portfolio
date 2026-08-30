@@ -1,8 +1,17 @@
-import { marked } from 'marked';
+import { marked, Renderer } from 'marked';
 import type { EngineeringNote } from '../types';
 
-// Configure marked renderer for clean terminal & cyberpunk styling
+// Custom renderer to assign clean ID anchors to headings for TOC navigation
+const customRenderer = new Renderer();
+customRenderer.heading = function ({ tokens, depth }: any) {
+  const text = this.parser.parseInline(tokens);
+  const plainText = text.replace(/<[^>]*>/g, '').trim();
+  const slug = plainText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  return `<h${depth} id="${slug}">${text}</h${depth}>\n`;
+};
+
 marked.setOptions({
+  renderer: customRenderer,
   gfm: true,
   breaks: true,
 });

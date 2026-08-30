@@ -328,6 +328,7 @@ button {
   letter-spacing: 0.04em;
   margin-top: 32px;
   margin-bottom: 14px;
+  scroll-margin-top: 80px;
 }
 
 .blog-markdown-content h1 {

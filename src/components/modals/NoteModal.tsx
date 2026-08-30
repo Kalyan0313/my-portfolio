@@ -114,17 +114,41 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
     }
   };
 
-  const scrollToHeading = (title: string) => {
-    if (!contentAreaRef.current) return;
+  const scrollToHeading = (id: string, title: string) => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
 
-    // Find heading element containing text
-    const headings = contentAreaRef.current.querySelectorAll('h1, h2, h3, h4');
-    for (const h of Array.from(headings)) {
-      if (h.textContent?.includes(title) || title.includes(h.textContent || '')) {
-        h.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setIsTocOpen(false);
-        break;
+    let targetEl: HTMLElement | null = null;
+    if (id) {
+      try {
+        targetEl = container.querySelector(`#${CSS.escape(id)}`) || document.getElementById(id);
+      } catch {
+        targetEl = document.getElementById(id);
       }
+    }
+
+    if (!targetEl && contentAreaRef.current) {
+      const headings = contentAreaRef.current.querySelectorAll('h1, h2, h3, h4');
+      for (const h of Array.from(headings)) {
+        const text = (h.textContent || '').trim().toLowerCase();
+        if (text.includes(title.toLowerCase()) || title.toLowerCase().includes(text)) {
+          targetEl = h as HTMLElement;
+          break;
+        }
+      }
+    }
+
+    if (targetEl) {
+      const targetRect = targetEl.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
+      const currentScroll = container.scrollTop;
+      const targetScrollTop = currentScroll + (targetRect.top - containerRect.top) - 75;
+
+      container.scrollTo({
+        top: Math.max(0, targetScrollTop),
+        behavior: 'smooth'
+      });
+      setIsTocOpen(false);
     }
   };
 
@@ -376,7 +400,7 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
               {tocItems.map((item, idx) => (
                 <button
                   key={idx}
-                  onClick={() => scrollToHeading(item.title)}
+                  onClick={() => scrollToHeading(item.id, item.title)}
                   style={{
                     textAlign: 'left',
                     background: 'none',
