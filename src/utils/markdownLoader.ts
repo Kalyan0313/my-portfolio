@@ -40,7 +40,7 @@ export function parseMarkdownFile(rawContent: string, fallbackId: string): Engin
       if (!trimmed || trimmed.startsWith('#')) return;
 
       if (trimmed.startsWith('- ') && currentKey && isArray) {
-        const itemVal = trimmed.replace(/^- \s*/, '').replace(/^["']|["']$/g, '');
+        const itemVal = trimmed.replace(/^- \s*/, '').replace(/^["']|["']$/g, '').replace(/\\"/g, '"');
         meta[currentKey].push(itemVal);
         return;
       }
@@ -62,14 +62,14 @@ export function parseMarkdownFile(rawContent: string, fallbackId: string): Engin
           meta[key] = value
             .slice(1, -1)
             .split(',')
-            .map((s) => s.trim().replace(/^["']|["']$/g, ''))
+            .map((s) => s.trim().replace(/^["']|["']$/g, '').replace(/\\"/g, '"'))
             .filter(Boolean);
         } else {
           currentKey = key;
           isArray = false;
           if (value.toLowerCase() === 'true') meta[key] = true;
           else if (value.toLowerCase() === 'false') meta[key] = false;
-          else meta[key] = value.replace(/^["']|["']$/g, '');
+          else meta[key] = value.replace(/^["']|["']$/g, '').replace(/\\"/g, '"').replace(/\\'/g, "'");
         }
       }
     });

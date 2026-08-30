@@ -1,6 +1,6 @@
 ---
 id: working-code-vs-production-ready-code
-title: "The Difference Between \"Working Code\" and Production-Ready Code"
+title: "The Difference Between 'Working Code' and Production-Ready Code"
 date: "Aug 2026"
 readTime: "8 min read"
 topic: "Engineering Philosophy"
