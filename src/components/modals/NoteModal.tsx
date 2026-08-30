@@ -169,29 +169,36 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
             </div>
           </div>
 
-          {/* Content Sections */}
-          {note.contentSections.map((sec, idx) => (
-            <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: '#FFFFFF', textTransform: 'uppercase', letterSpacing: '0.06em', margin: 0 }}>
-                {sec.heading}
-              </h3>
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: 1.75, margin: 0 }}>
-                {sec.text}
-              </p>
-              {sec.codeSnippet && (
-                <div style={{ marginTop: '8px' }}>
-                  {sec.codeSnippet.caption && (
-                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--accent-green)', display: 'block', marginBottom: '4px' }}>
-                      // {sec.codeSnippet.caption}
-                    </span>
-                  )}
-                  <pre className="code-box">
-                    <code>{sec.codeSnippet.code}</code>
-                  </pre>
-                </div>
-              )}
-            </div>
-          ))}
+          {/* Markdown HTML Content OR Content Sections Fallback */}
+          {note.htmlContent ? (
+            <div
+              className="blog-markdown-content"
+              dangerouslySetInnerHTML={{ __html: note.htmlContent }}
+            />
+          ) : (
+            note.contentSections?.map((sec, idx) => (
+              <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: '#FFFFFF', textTransform: 'uppercase', letterSpacing: '0.06em', margin: 0 }}>
+                  {sec.heading}
+                </h3>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'rgba(255, 255, 255, 0.65)', lineHeight: 1.75, margin: 0 }}>
+                  {sec.text}
+                </p>
+                {sec.codeSnippet && (
+                  <div style={{ marginTop: '8px' }}>
+                    {sec.codeSnippet.caption && (
+                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--accent-green)', display: 'block', marginBottom: '4px' }}>
+                        // {sec.codeSnippet.caption}
+                      </span>
+                    )}
+                    <pre className="code-box">
+                      <code>{sec.codeSnippet.code}</code>
+                    </pre>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
 
           {/* Tags */}
           {note.tags && note.tags.length > 0 && (

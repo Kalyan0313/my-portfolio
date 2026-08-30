@@ -107,7 +107,9 @@ export interface EngineeringNote {
   tags?: string[];
   featured?: boolean;
   keyTakeaways: string[];
-  contentSections: {
+  htmlContent?: string;
+  contentMarkdown?: string;
+  contentSections?: {
     heading: string;
     text: string;
     codeSnippet?: {
