@@ -14,15 +14,21 @@
 
 **Building Scalable Distributed Systems & High-Throughput Web Architectures**
 
-[Explore Portfolio](#) • [View GitHub](https://github.com/Kalyan0313) • [Connect on LinkedIn](https://linkedin.com/in/kalyan-mahato-366444244) • [Email Me](mailto:mahatokalyan2@gmail.com)
+[Live Portfolio (kalyanbuilds.site)](https://kalyanbuilds.site/) • [View GitHub](https://github.com/Kalyan0313) • [Connect on LinkedIn](https://linkedin.com/in/kalyan-mahato-366444244) • [Email Me](mailto:mahatokalyan2@gmail.com)
 
 </div>
 
 ---
 
+## Live Website
+
+- **Production Domain**: [https://kalyanbuilds.site/](https://kalyanbuilds.site/)
+
+---
+
 ## Overview
 
-A performance-first, production-grade developer portfolio engineered with a modern **Cyberpunk Amber & Solar Gold** dark aesthetic. Built with React 19, TypeScript, and Vite, featuring in-depth architectural case studies, an extensible technical blog engine with real-time search, and a zero-dependency client-side router with deep-linking support.
+A performance-first, production-grade developer portfolio engineered with a modern **Cyberpunk Amber & Solar Gold** dark aesthetic. Built with React 19, TypeScript, and Vite, featuring in-depth architectural case studies, an extensible technical blog engine with real-time search, automated unit test coverage, and a zero-dependency client-side router with deep-linking support. Live at [https://kalyanbuilds.site/](https://kalyanbuilds.site/).
 
 ---
 
