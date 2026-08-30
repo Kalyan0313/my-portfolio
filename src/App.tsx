@@ -51,10 +51,10 @@ export function App() {
 
       <main>
         <Hero onOpenResume={openResume} />
-        <EngineeringNotes onSelectNote={openNote} />
         <Projects onSelectCaseStudy={openProject} />
-        <Skills />
         <Experience />
+        <Skills />
+        <EngineeringNotes onSelectNote={openNote} />
         <About />
         <Contact
           onOpenResume={openResume}

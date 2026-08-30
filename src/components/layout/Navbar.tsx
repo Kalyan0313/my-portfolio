@@ -11,9 +11,10 @@ export const Navbar: React.FC<NavbarProps> = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Blogs", href: "#notes" },
     { name: "Work", href: "#works" },
+    { name: "Experience", href: "#experience" },
     { name: "Skills", href: "#skills" },
+    { name: "Blogs", href: "#notes" },
     { name: "About", href: "#about" },
     { name: "Contact", href: "#contact" },
   ];
