@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { X, Share2, Check, Maximize2, Minimize2, List } from 'lucide-react';
 import type { EngineeringNote } from '../../types';
 import { useModalEscape, useCopyToClipboard } from '../../hooks';
+import { fireCyberpunkConfetti } from '../../utils/confetti';
 
 interface NoteModalProps {
   note: EngineeringNote | null;
@@ -109,8 +110,11 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
   const handleShare = async () => {
     const url = `${window.location.origin}/#/note/${note.id}`;
     const success = await copyLink(url);
-    if (success && onShowToast) {
-      onShowToast(`Copied article link to clipboard!`);
+    if (success) {
+      fireCyberpunkConfetti();
+      if (onShowToast) {
+        onShowToast(`Copied article link to clipboard!`);
+      }
     }
   };
 

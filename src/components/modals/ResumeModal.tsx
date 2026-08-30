@@ -2,6 +2,7 @@ import React from 'react';
 import { X, Printer } from 'lucide-react';
 import { profileData, experienceData, projectsData } from '../../data';
 import { useModalEscape } from '../../hooks';
+import { fireMilestoneCannon } from '../../utils/confetti';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
   if (!isOpen) return null;
 
   const handlePrint = () => {
+    fireMilestoneCannon();
     window.print();
   };
 

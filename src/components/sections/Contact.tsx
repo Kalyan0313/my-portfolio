@@ -1,6 +1,7 @@
 import React from "react";
 import { profileData } from "../../data";
 import { useCopyToClipboard } from "../../hooks";
+import { fireCyberpunkConfetti } from "../../utils/confetti";
 
 export interface ContactProps {
   onOpenResume: () => void;
@@ -19,6 +20,7 @@ export const Contact: React.FC<ContactProps> = ({
   const handleCopyEmail = async () => {
     const success = await copyEmail(profileData.email);
     if (success) {
+      fireCyberpunkConfetti();
       onShowToast(`Copied ${profileData.email} to clipboard!`);
     }
   };
@@ -27,6 +29,7 @@ export const Contact: React.FC<ContactProps> = ({
     if (!profileData.phone) return;
     const success = await copyPhone(profileData.phone);
     if (success) {
+      fireCyberpunkConfetti();
       onShowToast(`Copied ${profileData.phone} to clipboard!`);
     }
   };
