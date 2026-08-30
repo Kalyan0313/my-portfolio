@@ -160,6 +160,7 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
     <div
       role="dialog"
       aria-modal="true"
+      data-lenis-prevent="true"
       style={{
         position: 'fixed',
         inset: 0,
@@ -170,13 +171,15 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
         padding: isFullScreen ? 0 : '1rem',
         backgroundColor: 'rgba(5, 5, 5, 0.94)',
         backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)'
+        WebkitBackdropFilter: 'blur(12px)',
+        overscrollBehavior: 'contain'
       }}
       onClick={onClose}
     >
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
+        data-lenis-prevent="true"
         style={{
           width: '100%',
           maxWidth: isFullScreen ? '100vw' : '960px',
@@ -185,6 +188,8 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
           backgroundColor: '#080808',
           border: isFullScreen ? 'none' : '1px solid rgba(255, 255, 255, 0.12)',
           overflowY: 'auto',
+          overscrollBehavior: 'contain',
+          WebkitOverflowScrolling: 'touch',
           display: 'flex',
           flexDirection: 'column',
           position: 'relative',

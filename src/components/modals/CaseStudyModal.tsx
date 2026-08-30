@@ -33,13 +33,16 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose
       onClick={onClose}
     >
       <div
+        data-lenis-prevent="true"
         style={{
           width: '100%',
-          maxWidth: '920px',
+          maxWidth: '860px',
           maxHeight: '90vh',
           backgroundColor: '#0A0A0A',
           border: '1px solid rgba(255, 255, 255, 0.15)',
           overflowY: 'auto',
+          overscrollBehavior: 'contain',
+          WebkitOverflowScrolling: 'touch',
           display: 'flex',
           flexDirection: 'column',
           position: 'relative'

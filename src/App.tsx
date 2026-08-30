@@ -33,6 +33,8 @@ export function App() {
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  const isAnyModalOpen = Boolean(selectedCaseStudy || selectedNote || isResumeOpen);
+
   // Initialize Lenis Smooth Momentum Scrolling
   useEffect(() => {
     const lenis = new Lenis({
@@ -41,7 +43,20 @@ export function App() {
       smoothWheel: true,
       wheelMultiplier: 1.0,
       touchMultiplier: 1.5,
+      prevent: (node) => {
+        return (
+          node.closest('[data-lenis-prevent]') !== null ||
+          node.closest('[role="dialog"]') !== null ||
+          node.closest('.resume-sheet') !== null
+        );
+      },
     });
+
+    if (isAnyModalOpen) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
 
     let animationFrameId: number;
 
@@ -56,7 +71,7 @@ export function App() {
       cancelAnimationFrame(animationFrameId);
       lenis.destroy();
     };
-  }, []);
+  }, [isAnyModalOpen]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
