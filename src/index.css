@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --font-mono: 'Ubuntu Mono', 'JetBrains Mono', monospace;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --pad-x: clamp(20px, 5.5vw, 80px);
+
+  /* Cyberpunk Amber / Gold color system */
+  --bg-dark: #0A0A0A;
+  --bg-deep: #030303;
+  --bg-card: rgba(255, 255, 255, 0.015);
+  --bg-card-hover: rgba(255, 255, 255, 0.04);
+  --bg-surface: #111111;
+
+  --accent-green: #F59E0B;
+  --accent-lime: #FCD34D;
+  --accent-green-glow: rgba(245, 158, 11, 0.35);
+  --accent-green-subtle: rgba(245, 158, 11, 0.08);
+  --accent-green-border: rgba(245, 158, 11, 0.20);
+
+  --border-ultra-subtle: rgba(255, 255, 255, 0.06);
+  --border-subtle: rgba(255, 255, 255, 0.10);
+  --border-default: rgba(255, 255, 255, 0.15);
+  --border-corner: rgba(255, 255, 255, 0.22);
+
+  --text-white: #FFFFFF;
+  --text-muted: rgba(255, 255, 255, 0.50);
+  --text-subtle: rgba(255, 255, 255, 0.40);
+  --text-faint: rgba(255, 255, 255, 0.25);
+  --text-body: rgba(255, 255, 255, 0.75);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-green);
+}
+
+/* Links and Buttons */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Nav Menu & Corner Bracket Button from biswarup.dev */
+.nav-button {
+  position: relative;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 15px;
+  color: #FFFFFF;
+  background: none;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  padding: 9px 18px;
+  transition: color 0.15s ease;
+  text-transform: uppercase;
+}
+
+.nav-button:hover {
+  color: var(--accent-green);
+}
+
+.nav-button .corner {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-color: var(--border-corner);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.nav-button:hover .corner {
+  border-color: var(--accent-green);
+  box-shadow: 0 0 6px var(--accent-green-glow);
+}
+
+.nav-button .corner-tl {
+  top: 0;
+  left: 0;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+.nav-button .corner-tr {
+  top: 0;
+  right: 0;
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+.nav-button .corner-bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+.nav-button .corner-br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+/* Filter / Role Button */
+.pill-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 0;
+}
+
+.pill-btn-active {
+  background: var(--accent-green);
+  color: #0A0A0A;
+  border: 1px solid var(--accent-green);
+  font-weight: 700;
+  box-shadow: 0 0 14px var(--accent-green-glow);
+}
+
+.pill-btn-inactive {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.70);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-weight: 400;
+}
+.pill-btn-inactive:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-color: var(--accent-green);
+}
+
+/* Layout helpers */
+.flex-col-md-row {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 900px) {
+  .flex-col-md-row {
+    flex-direction: row;
+  }
+}
+
+.works-sidebar {
+  width: 100%;
+  padding: 48px var(--pad-x);
+  border-bottom: 1px solid var(--border-ultra-subtle);
+}
+
+@media (min-width: 900px) {
+  .works-sidebar {
+    width: 380px;
+    border-bottom: none;
+    border-right: 1px solid var(--border-ultra-subtle);
+    padding: 48px var(--pad-x) 48px var(--pad-x);
+  }
+}
+
+/* Skill / Tech Item Box */
+.skill-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.35s ease;
+  cursor: pointer;
+}
+
+.skill-box:hover {
+  border-color: var(--accent-green);
+  background: rgba(245, 158, 11, 0.04);
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.15);
+}
+
+.skill-box:hover span {
+  color: var(--accent-green) !important;
+}
+
+/* Status Item Box */
+.status-item {
+  flex: 1;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-ultra-subtle);
+}
+
+@media (min-width: 768px) {
+  .status-item {
+    border-bottom: none;
+    border-right: 1px solid var(--border-ultra-subtle);
+  }
+  .status-item:last-child {
+    border-right: none;
+  }
+}
+
+/* Blog / Note Card */
+.note-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 28px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.note-card:hover {
+  border-color: var(--accent-green);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+  transform: translateY(-2px);
+}
+
+.note-card:hover .note-title {
+  color: var(--accent-green) !important;
+}
+
+/* Code Snippet Box */
+.code-box {
+  background-color: #030303;
+  border: 1px solid var(--border-subtle);
+  padding: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+/* Section Header Typography */
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.20em;
+  color: var(--accent-green);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: inline-block;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 64px);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+  color: #FFFFFF;
+  margin: 0 0 16px;
+}
+
+.section-divider {
+  border-top: 1px solid var(--border-subtle);
+  margin: 32px 0 48px;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+}
