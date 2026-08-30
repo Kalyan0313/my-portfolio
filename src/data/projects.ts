@@ -164,7 +164,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'raise-labs',
-    title: 'RAISE LABS — Flight Booking Engine',
+    title: 'RAISE LABS',
     tagline: 'High-Throughput Flight Search & Booking Integration',
     badge: 'API & Caching Architecture',
     image: '/images/raise-labs.jpg',
@@ -291,7 +291,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'grass-app',
-    title: 'GRASS APP — Sustainable Green Products Platform',
+    title: 'GRASS APP',
     tagline: 'Eco-Friendly Catalog, Cart State & Inventory Management',
     badge: 'Frontend & CMS Architecture',
     image: '/images/grass-app.jpg',
@@ -397,7 +397,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'chat-wave',
-    title: 'CHAT WAVE — Real-Time Messaging System',
+    title: 'CHAT WAVE',
     tagline: 'WebSocket-Powered Chat with Presence & Persistent Rooms',
     badge: 'Real-Time & WebSockets',
     image: '/images/chat-wave.jpg',
