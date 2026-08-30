@@ -10,6 +10,7 @@ export interface EngineeringNotesProps {
 export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTopic, setSelectedTopic] = useState<string>('ALL');
+  const [showAll, setShowAll] = useState(false);
 
   // Compute unique topics with counts
   const topics = useMemo(() => {
@@ -41,6 +42,12 @@ export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote
       return inTitle || inSummary || inTopic || inTags;
     });
   }, [selectedTopic, searchQuery]);
+
+  // If user is searching or has selected a specific topic, automatically show all matching results
+  // Otherwise, if on default landing view and !showAll, display only the first 3 articles
+  const isFiltering = Boolean(searchQuery.trim() || selectedTopic !== 'ALL');
+  const displayedNotes = isFiltering || showAll ? filteredNotes : filteredNotes.slice(0, 3);
+  const hasMore = !isFiltering && filteredNotes.length > 3;
 
   return (
     <section
@@ -243,16 +250,18 @@ export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote
               textTransform: 'uppercase'
             }}
           >
-            Showing {filteredNotes.length} of {engineeringNotesData.length} articles
+            Showing {displayedNotes.length} of {engineeringNotesData.length} articles
             {selectedTopic !== 'ALL' && ` in [${selectedTopic}]`}
             {searchQuery && ` matching "${searchQuery}"`}
+            {!isFiltering && !showAll && ` (Latest 3)`}
           </span>
 
-          {(selectedTopic !== 'ALL' || searchQuery) && (
+          {(selectedTopic !== 'ALL' || searchQuery || showAll) && (
             <button
               onClick={() => {
                 setSelectedTopic('ALL');
                 setSearchQuery('');
+                setShowAll(false);
               }}
               style={{
                 fontFamily: 'var(--font-mono)',
@@ -272,168 +281,217 @@ export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote
         </div>
 
         {/* Articles Grid */}
-        {filteredNotes.length > 0 ? (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-              gap: '28px'
-            }}
-          >
-            {filteredNotes.map((note) => (
-              <article
-                key={note.id}
-                onClick={() => onSelectNote(note)}
-                className="note-card"
-                style={{
-                  position: 'relative',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  background: 'rgba(255, 255, 255, 0.015)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                  padding: '24px',
-                  transition: 'all 0.25s ease',
-                  cursor: 'pointer'
-                }}
-              >
-                {/* Meta Top: Read Time, Date, Topic */}
-                <div
+        {displayedNotes.length > 0 ? (
+          <>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                gap: '28px'
+              }}
+            >
+              {displayedNotes.map((note) => (
+                <article
+                  key={note.id}
+                  onClick={() => onSelectNote(note)}
+                  className="note-card"
                   style={{
+                    position: 'relative',
                     display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: '14px',
-                    gap: '8px'
+                    flexDirection: 'column',
+                    background: 'rgba(255, 255, 255, 0.015)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    padding: '24px',
+                    transition: 'all 0.25s ease',
+                    cursor: 'pointer'
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '11px',
-                        color: 'rgba(255,255,255,0.40)'
-                      }}
-                    >
-                      {note.date || 'Technical Note'}
-                    </span>
-                    <span style={{ color: 'rgba(255,255,255,0.20)' }}>•</span>
-                    <span
-                      style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '11px',
-                        color: 'rgba(255,255,255,0.40)'
-                      }}
-                    >
-                      {note.readTime}
-                    </span>
-                  </div>
-
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '10px',
-                      padding: '3px 8px',
-                      background: 'var(--accent-green-subtle)',
-                      border: '1px solid var(--accent-green-border)',
-                      color: 'var(--accent-green)',
-                      letterSpacing: '0.05em',
-                      textTransform: 'uppercase'
-                    }}
-                  >
-                    {note.topic}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3
-                  className="note-title"
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '15px',
-                    fontWeight: 700,
-                    lineHeight: 1.4,
-                    color: '#FFFFFF',
-                    margin: '0 0 12px 0',
-                    transition: 'color 0.2s ease',
-                    letterSpacing: '0.01em'
-                  }}
-                >
-                  {note.title}
-                </h3>
-
-                {/* Summary */}
-                <p
-                  style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '13px',
-                    lineHeight: 1.6,
-                    color: 'rgba(255,255,255,0.55)',
-                    margin: '0 0 18px 0',
-                    flex: 1
-                  }}
-                >
-                  {note.summary}
-                </p>
-
-                {/* Tags List */}
-                {note.tags && note.tags.length > 0 && (
+                  {/* Meta Top: Read Time, Date, Topic */}
                   <div
                     style={{
                       display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: '6px',
-                      marginBottom: '16px'
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '14px',
+                      gap: '8px'
                     }}
                   >
-                    {note.tags.map((tag) => (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span
-                        key={tag}
                         style={{
                           fontFamily: 'var(--font-mono)',
-                          fontSize: '10.5px',
-                          color: 'rgba(255, 255, 255, 0.45)',
-                          background: 'rgba(255, 255, 255, 0.03)',
-                          border: '1px solid rgba(255, 255, 255, 0.06)',
-                          padding: '2px 6px'
+                          fontSize: '11px',
+                          color: 'rgba(255,255,255,0.40)'
                         }}
                       >
-                        #{tag}
+                        {note.date || 'Technical Note'}
                       </span>
-                    ))}
-                  </div>
-                )}
+                      <span style={{ color: 'rgba(255,255,255,0.20)' }}>•</span>
+                      <span
+                        style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '11px',
+                          color: 'rgba(255,255,255,0.40)'
+                        }}
+                      >
+                        {note.readTime}
+                      </span>
+                    </div>
 
-                {/* Action Link */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    marginTop: 'auto',
-                    paddingTop: '12px',
-                    borderTop: '1px solid rgba(255, 255, 255, 0.05)'
-                  }}
-                >
-                  <span
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '10px',
+                        padding: '3px 8px',
+                        background: 'var(--accent-green-subtle)',
+                        border: '1px solid var(--accent-green-border)',
+                        color: 'var(--accent-green)',
+                        letterSpacing: '0.05em',
+                        textTransform: 'uppercase'
+                      }}
+                    >
+                      {note.topic}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className="note-title"
                     style={{
                       fontFamily: 'var(--font-mono)',
-                      fontSize: '11px',
-                      letterSpacing: '0.10em',
-                      textTransform: 'uppercase',
-                      color: 'var(--accent-green)',
-                      textDecoration: 'underline',
-                      textUnderlineOffset: '4px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px'
+                      fontSize: '15px',
+                      fontWeight: 700,
+                      lineHeight: 1.4,
+                      color: '#FFFFFF',
+                      margin: '0 0 12px 0',
+                      transition: 'color 0.2s ease',
+                      letterSpacing: '0.01em'
                     }}
                   >
-                    READ ARTICLE <ArrowUpRight size={13} />
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
+                    {note.title}
+                  </h3>
+
+                  {/* Summary */}
+                  <p
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '13px',
+                      lineHeight: 1.6,
+                      color: 'rgba(255,255,255,0.55)',
+                      margin: '0 0 18px 0',
+                      flex: 1
+                    }}
+                  >
+                    {note.summary}
+                  </p>
+
+                  {/* Tags List */}
+                  {note.tags && note.tags.length > 0 && (
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '6px',
+                        marginBottom: '16px'
+                      }}
+                    >
+                      {note.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          style={{
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: '10.5px',
+                            color: 'rgba(255, 255, 255, 0.45)',
+                            background: 'rgba(255, 255, 255, 0.03)',
+                            border: '1px solid rgba(255, 255, 255, 0.06)',
+                            padding: '2px 6px'
+                          }}
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Action Link */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      marginTop: 'auto',
+                      paddingTop: '12px',
+                      borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '11px',
+                        letterSpacing: '0.10em',
+                        textTransform: 'uppercase',
+                        color: 'var(--accent-green)',
+                        textDecoration: 'underline',
+                        textUnderlineOffset: '4px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px'
+                      }}
+                    >
+                      READ ARTICLE <ArrowUpRight size={13} />
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            {/* View All / Show Less Toggle Button */}
+            {hasMore && (
+              <div
+                style={{
+                  marginTop: '40px',
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}
+              >
+                <button
+                  onClick={() => setShowAll(!showAll)}
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '12px',
+                    fontWeight: 700,
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    background: showAll ? 'rgba(255, 255, 255, 0.04)' : 'var(--accent-green-subtle)',
+                    border: '1px solid var(--accent-green)',
+                    color: 'var(--accent-green)',
+                    padding: '12px 28px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    transition: 'all 0.25s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--accent-green)';
+                    e.currentTarget.style.color = '#000000';
+                    e.currentTarget.style.boxShadow = '0 0 16px var(--accent-green-glow)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = showAll ? 'rgba(255, 255, 255, 0.04)' : 'var(--accent-green-subtle)';
+                    e.currentTarget.style.color = 'var(--accent-green)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  {showAll ? (
+                    <span>[ SHOW LESS ARTICLES ]</span>
+                  ) : (
+                    <span>[ VIEW ALL {filteredNotes.length} ARTICLES ]</span>
+                  )}
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div
             style={{
