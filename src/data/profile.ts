@@ -2,34 +2,47 @@ import type { Profile } from '../types';
 
 export const profileData: Profile = {
   name: 'Kalyan Mahato',
-  role: 'Node.js Full-Stack Developer',
+
+  role: 'Full Stack Developer',
+
   headline: 'Building Full-Stack Products with Node.js, TypeScript & React',
+
   location: 'Bengaluru, India',
-  availability: 'Open to Full Stack & Backend Opportunities',
+
+  availability: 'Open to Full Stack Developer Opportunities',
+
   bioParagraphs: [
-    "I'm a Node.js Full-Stack Developer focused on building reliable, maintainable, and production-ready web applications. My experience spans React and Next.js on the frontend, with Node.js and Express on the backend, along with relational and NoSQL databases.",
-    "I particularly enjoy working beyond the UI — designing REST APIs, building multi-tenant platforms, implementing real-time communication with WebSockets and Socket.IO, optimizing application performance with Redis, integrating third-party services, and designing efficient database schemas.",
-    "My approach to engineering is centered around clean architecture, readable and maintainable code, predictable error handling, performance, and pragmatic technical decisions. I focus on solving real-world problems and building systems that are reliable and easy to evolve.",
-    "Based in India, I work across JavaScript, TypeScript, React, Next.js, Node.js, Express, Socket.IO, Redis, PostgreSQL, MongoDB, Docker, and REST APIs — building applications from frontend interfaces to backend services and persistence layers."
+    "I'm a Full-Stack Developer with around 2 years of experience building products with React, Next.js, Node.js, and TypeScript. Most of my work has been backend-focused, from designing REST APIs and database models to integrating third-party services and handling real-time features.",
+
+    "I've worked with MongoDB, PostgreSQL, Redis, Socket.IO, and Docker across projects involving multi-tenancy, payments, caching, and real-time communication. I care about keeping the codebase understandable, handling edge cases properly, and choosing solutions that fit the actual problem rather than adding unnecessary complexity."
   ],
+
   focusAreas: [
     {
-      title: 'Backend & API Engineering',
-      description: 'Layered architecture with Express/Node.js, resilient error handling, input validation, and clean RESTful design.'
+      title: 'Backend & API Development',
+      description:
+        'Building REST APIs with Node.js and Express, with authentication, validation, error handling, and clear separation of business logic.'
     },
+
     {
-      title: 'Real-Time & Distributed Systems',
-      description: 'Socket.IO event-driven workflows, WebSocket state coordination, and Redis pub/sub caching layers.'
+      title: 'Databases & Caching',
+      description:
+        'Working with MongoDB, PostgreSQL, and Redis for data modeling, indexing, caching, and efficient queries.'
     },
+
     {
-      title: 'Database Modeling & Performance',
-      description: 'Schema modeling, relationship indexing, and query optimization across MongoDB, PostgreSQL, and MySQL.'
+      title: 'Real-Time Applications',
+      description:
+        'Building real-time features with Socket.IO and WebSockets, including messaging, live updates, and event-based communication.'
     },
+
     {
-      title: 'Modern Frontend Architecture',
-      description: 'Composable UI with React, Next.js, and TypeScript, focusing on strict typing, fast rendering, and minimal dependencies.'
+      title: 'Frontend Development',
+      description:
+        'Building responsive interfaces with React, Next.js, and TypeScript with a focus on reusable components and maintainable code.'
     }
   ],
+
   quickStack: [
     'JavaScript',
     'TypeScript',
@@ -43,9 +56,14 @@ export const profileData: Profile = {
     'Socket.IO',
     'Docker'
   ],
+
   github: 'https://github.com/Kalyan0313',
+
   linkedin: 'https://linkedin.com/in/kalyan-mahato-366444244',
+
   email: 'mahatokalyan2@gmail.com',
-  phone: '+91 9641072290',
-  resumeUrl: '#resume'
+
+  phone: '',
+
+  resumeUrl: '/Kalyan-Mahato-Resume.pdf'
 };
