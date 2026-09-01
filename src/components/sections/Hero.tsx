@@ -33,20 +33,6 @@ export const Hero: React.FC<HeroProps> = ({ onFilterChange }) => {
       statusRole: 'BACKEND DEVELOPER',
       icon: <Server size={13} />
     },
-    {
-      id: 'frontend',
-      label: 'Frontend Developer',
-      roleTitle: 'Frontend Developer',
-      statusRole: 'FRONTEND DEVELOPER',
-      icon: <Layout size={13} />
-    },
-    {
-      id: 'swe',
-      label: 'Software Engineer',
-      roleTitle: 'Software Engineer',
-      statusRole: 'SOFTWARE ENGINEER',
-      icon: <Terminal size={13} />
-    },
   ];
 
   const activeTab = filterTabs.find((tab) => tab.id === selectedTag) || filterTabs[0];

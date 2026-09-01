@@ -3,8 +3,8 @@ import type { Profile } from '../types';
 export const profileData: Profile = {
   name: 'Kalyan Mahato',
   role: 'Node.js Full-Stack Developer',
-  headline: 'Building Scalable Distributed Systems & High-Throughput Web Architectures',
-  location: 'Bangalore, India',
+  headline: 'Building Full-Stack Products with Node.js, TypeScript & React',
+  location: 'Bengaluru, India',
   availability: 'Open to Full Stack & Backend Opportunities',
   bioParagraphs: [
     "I'm a Node.js Full-Stack Developer focused on building reliable, maintainable, and production-ready web applications. My experience spans React and Next.js on the frontend, with Node.js and Express on the backend, along with relational and NoSQL databases.",
