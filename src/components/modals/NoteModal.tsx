@@ -423,10 +423,7 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
               overflowY: 'auto'
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--accent-green)', letterSpacing: '0.10em', textTransform: 'uppercase' }}>
-                [ TABLE OF CONTENTS ]
-              </span>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginBottom: '12px' }}>
               <button
                 onClick={() => setIsTocOpen(false)}
                 style={{ background: 'none', border: 'none', color: 'rgba(255, 255, 255, 0.40)', cursor: 'pointer', fontSize: '11px', fontFamily: 'var(--font-mono)' }}
