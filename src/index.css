@@ -246,17 +246,13 @@ button {
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.015);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 28px;
-  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
 }
 
 .note-card:hover {
   border-color: var(--accent-green);
-  background: rgba(255, 255, 255, 0.035);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .note-card:hover .note-title {
@@ -277,12 +273,7 @@ button {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.4s ease, filter 0.4s ease;
   display: block;
-}
-
-.note-card:hover .note-thumbnail-img {
-  transform: scale(1.05);
 }
 
 .note-modal-hero-thumbnail {

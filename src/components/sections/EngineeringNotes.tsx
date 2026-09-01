@@ -303,7 +303,6 @@ export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote
                     border: '1px solid rgba(255, 255, 255, 0.08)',
                     padding: 0,
                     overflow: 'hidden',
-                    transition: 'all 0.25s ease',
                     cursor: 'pointer'
                   }}
                 >
@@ -325,7 +324,7 @@ export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote
                       display: 'flex',
                       flexDirection: 'column',
                       flex: 1,
-                      padding: '20px 22px 22px'
+                      padding: '18px 20px 20px'
                     }}
                   >
                     {/* Meta Top: Read Time, Date, Topic */}
@@ -334,7 +333,7 @@ export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        marginBottom: '14px',
+                        marginBottom: '12px',
                         gap: '8px'
                       }}
                     >
@@ -385,27 +384,12 @@ export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote
                       fontWeight: 700,
                       lineHeight: 1.4,
                       color: '#FFFFFF',
-                      margin: '0 0 12px 0',
-                      transition: 'color 0.2s ease',
+                      margin: '0 0 16px 0',
                       letterSpacing: '0.01em'
                     }}
                   >
                     {note.title}
                   </h3>
-
-                  {/* Summary */}
-                  <p
-                    style={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '13px',
-                      lineHeight: 1.6,
-                      color: 'rgba(255,255,255,0.55)',
-                      margin: '0 0 18px 0',
-                      flex: 1
-                    }}
-                  >
-                    {note.summary}
-                  </p>
 
                   {/* Tags List */}
                   {note.tags && note.tags.length > 0 && (
