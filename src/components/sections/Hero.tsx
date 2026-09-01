@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layers, Code2, Server, Layout, Terminal } from 'lucide-react';
+import { Layers, Code2, Server } from 'lucide-react';
 import { profileData } from '../../data';
 
 export interface HeroProps {
