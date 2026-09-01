@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Layers, Database, Radio, Lightbulb } from 'lucide-react';
+import { X, Layers, Database, Radio, Lightbulb, ExternalLink } from 'lucide-react';
 import type { Project } from '../../types';
 import { useModalEscape } from '../../hooks';
 
@@ -91,22 +91,74 @@ export const CaseStudyModal: React.FC<CaseStudyModalProps> = ({ project, onClose
             </h2>
           </div>
 
-          <button
-            onClick={onClose}
-            aria-label="Close modal"
-            style={{
-              background: 'none',
-              border: '1px solid rgba(255, 255, 255, 0.20)',
-              color: '#FFFFFF',
-              padding: '6px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <X size={18} />
-          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            {project.liveUrl && project.liveUrl !== '#' && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '11px',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: 'var(--accent-green)',
+                  background: 'var(--accent-green-subtle)',
+                  border: '1px solid var(--accent-green-border)',
+                  padding: '6px 12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  textDecoration: 'none'
+                }}
+              >
+                <span>Live Site</span>
+                <ExternalLink size={12} />
+              </a>
+            )}
+
+            {project.githubUrl && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '11px',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255, 255, 255, 0.70)',
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  padding: '6px 12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  textDecoration: 'none'
+                }}
+              >
+                <span>Source</span>
+                <ExternalLink size={12} />
+              </a>
+            )}
+
+            <button
+              onClick={onClose}
+              aria-label="Close modal"
+              style={{
+                background: 'none',
+                border: '1px solid rgba(255, 255, 255, 0.20)',
+                color: '#FFFFFF',
+                padding: '6px',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <X size={18} />
+            </button>
+          </div>
         </div>
 
         {/* Modal Body */}

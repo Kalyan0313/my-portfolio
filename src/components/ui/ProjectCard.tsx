@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, CheckCircle2, BookOpen } from 'lucide-react';
+import { ArrowRight, CheckCircle2, BookOpen, ExternalLink } from 'lucide-react';
 import { GithubIcon } from './Icons';
 import type { Project } from '../../types';
 
@@ -138,7 +138,21 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelectCaseS
           <ArrowRight size={14} />
         </button>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+          {project.liveUrl && project.liveUrl !== '#' && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-accent btn-sm"
+              aria-label={`View live site for ${project.title}`}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}
+            >
+              <ExternalLink size={14} />
+              <span>Live Site</span>
+            </a>
+          )}
+
           {project.githubUrl && (
             <a
               href={project.githubUrl}

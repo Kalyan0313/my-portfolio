@@ -245,7 +245,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectCaseStudy }) => {
         </div>
 
         {/* Action Links */}
-        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginTop: 'auto' }}>
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginTop: 'auto', flexWrap: 'wrap' }}>
           <button
             onClick={() => onSelectCaseStudy(activeProject)}
             style={{
@@ -265,6 +265,26 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectCaseStudy }) => {
           >
             [VIEW CASE STUDY ↗]
           </button>
+
+          {activeProject.liveUrl && activeProject.liveUrl !== '#' && (
+            <a
+              href={activeProject.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '12px',
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                color: 'var(--accent-green)',
+                textDecoration: 'underline',
+                textUnderlineOffset: '4px',
+                transition: 'opacity 0.2s'
+              }}
+            >
+              [LIVE SITE ↗]
+            </a>
+          )}
 
           {activeProject.githubUrl && (
             <a
