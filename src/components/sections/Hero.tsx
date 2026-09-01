@@ -21,9 +21,9 @@ export const Hero: React.FC<HeroProps> = ({ onFilterChange }) => {
     },
     {
       id: 'fullstack',
-      label: 'Full Stack Developer',
-      roleTitle: 'Full Stack Developer',
-      statusRole: 'FULL STACK DEVELOPER',
+      label: 'Node.js Full-Stack Developer',
+      roleTitle: 'Node.js Full-Stack Developer',
+      statusRole: 'NODE.JS FULL-STACK',
       icon: <Code2 size={13} />
     },
     {

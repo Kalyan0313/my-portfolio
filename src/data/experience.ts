@@ -4,7 +4,7 @@ export const experienceData: ExperienceItem[] = [
   {
     id: 'exp-1',
     company: 'Excellis IT',
-    role: 'Full Stack Developer',
+    role: 'Node.js Full-Stack Developer',
     period: 'July 2024 — March 2026',
     location: 'India',
     badge: 'Full Time',

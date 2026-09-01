@@ -2,12 +2,12 @@ import type { Profile } from '../types';
 
 export const profileData: Profile = {
   name: 'Kalyan Mahato',
-  role: 'Full Stack Developer',
+  role: 'Node.js Full-Stack Developer',
   headline: 'Building Scalable Distributed Systems & High-Throughput Web Architectures',
   location: 'Bangalore, India',
   availability: 'Open to Full Stack & Backend Opportunities',
   bioParagraphs: [
-    "I'm a Full Stack Developer focused on building reliable, maintainable, and production-ready web applications. My experience spans React and Next.js on the frontend, with Node.js and Express on the backend, along with relational and NoSQL databases.",
+    "I'm a Node.js Full-Stack Developer focused on building reliable, maintainable, and production-ready web applications. My experience spans React and Next.js on the frontend, with Node.js and Express on the backend, along with relational and NoSQL databases.",
     "I particularly enjoy working beyond the UI — designing REST APIs, building multi-tenant platforms, implementing real-time communication with WebSockets and Socket.IO, optimizing application performance with Redis, integrating third-party services, and designing efficient database schemas.",
     "My approach to engineering is centered around clean architecture, readable and maintainable code, predictable error handling, performance, and pragmatic technical decisions. I focus on solving real-world problems and building systems that are reliable and easy to evolve.",
     "Based in India, I work across JavaScript, TypeScript, React, Next.js, Node.js, Express, Socket.IO, Redis, PostgreSQL, MongoDB, Docker, and REST APIs — building applications from frontend interfaces to backend services and persistence layers."
