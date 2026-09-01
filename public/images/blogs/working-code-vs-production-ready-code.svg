@@ -1,102 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-grad-11" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#080808"/>
-      <stop offset="50%" stop-color="#14110A"/>
-      <stop offset="100%" stop-color="#1A1505"/>
+    <linearGradient id="bg11" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070709"/>
+      <stop offset="50%" stop-color="#0F0D13"/>
+      <stop offset="100%" stop-color="#14110A"/>
     </linearGradient>
-    <filter id="glow-11" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur"/>
+    <radialGradient id="glow11" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.22"/>
+      <stop offset="50%" stop-color="#10B981" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dot-grid11" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="rgba(255, 255, 255, 0.05)"/>
+    </pattern>
+    <filter id="soft-glow11" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
-    <pattern id="grid-11" width="30" height="30" patternUnits="userSpaceOnUse">
-      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
-    </pattern>
   </defs>
 
-  <rect width="800" height="450" fill="url(#bg-grad-11)"/>
-  <rect width="800" height="450" fill="url(#grid-11)"/>
-  <circle cx="580" cy="225" r="160" fill="rgba(245, 158, 11, 0.08)" filter="url(#glow-11)"/>
+  <rect width="800" height="450" fill="url(#bg11)"/>
+  <rect width="800" height="450" fill="url(#dot-grid11)"/>
+  <circle cx="400" cy="225" r="220" fill="url(#glow11)"/>
 
-  <!-- Badges -->
-  <rect x="40" y="36" width="160" height="26" rx="3" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="1"/>
-  <text x="52" y="53" fill="#F59E0B" font-family="'Courier New', monospace" font-size="12" font-weight="bold" letter-spacing="1.5">PRODUCTION READY</text>
+  <!-- Decorative Corner Brackets -->
+  <path d="M 32 48 L 32 32 L 48 32" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
+  <path d="M 768 48 L 768 32 L 752 32" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
+  <path d="M 32 402 L 32 418 L 48 418" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
+  <path d="M 768 402 L 768 418 L 752 418" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
 
-  <rect x="210" y="36" width="160" height="26" rx="3" fill="rgba(16, 185, 129, 0.1)" stroke="#10B981" stroke-width="1"/>
-  <text x="222" y="53" fill="#10B981" font-family="'Courier New', monospace" font-size="12" letter-spacing="1">OBSERVABILITY &amp; OPS</text>
-
-  <!-- Title -->
-  <text x="40" y="102" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" letter-spacing="-0.5">Working Code vs Production-Ready Code</text>
-  <text x="40" y="128" fill="rgba(255, 255, 255, 0.55)" font-family="'Courier New', monospace" font-size="13">Structured JSON Logs • OpenTelemetry Traces • Graceful Shutdown • Rate Limits</text>
-
-  <!-- 4 Pillars of Production Ready Engineering -->
-  <g transform="translate(40, 160)">
-    <!-- Pillar 1: Observability -->
-    <g transform="translate(0, 0)">
-      <rect width="170" height="220" rx="6" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1.5"/>
-      <rect x="12" y="12" width="60" height="18" rx="2" fill="rgba(245, 158, 11, 0.2)"/>
-      <text x="18" y="25" fill="#FCD34D" font-family="'Courier New', monospace" font-size="10" font-weight="bold">PILLAR 1</text>
-      <text x="12" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">Observability</text>
-      <g transform="translate(12, 75)">
-        <text x="0" y="0" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="10">• JSON structured logs</text>
-        <text x="0" y="18" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="10">• reqId trace correlation</text>
-        <text x="0" y="36" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="10">• Prometheus / p99 stats</text>
-      </g>
-      <rect x="12" y="150" width="146" height="50" rx="4" fill="#040404" stroke="rgba(255,255,255,0.1)"/>
-      <text x="18" y="170" fill="#10B981" font-family="'Courier New', monospace" font-size="9">{"level":"info",</text>
-      <text x="18" y="185" fill="#F59E0B" font-family="'Courier New', monospace" font-size="9">"trace_id":"8a9f..."}</text>
-    </g>
-
-    <!-- Pillar 2: Reliability -->
-    <g transform="translate(182, 0)">
-      <rect width="170" height="220" rx="6" fill="rgba(245, 158, 11, 0.08)" stroke="#F59E0B" stroke-width="2"/>
-      <rect x="12" y="12" width="60" height="18" rx="2" fill="#F59E0B"/>
-      <text x="18" y="25" fill="#000000" font-family="'Courier New', monospace" font-size="10" font-weight="bold">PILLAR 2</text>
-      <text x="12" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">Reliability</text>
-      <g transform="translate(12, 75)">
-        <text x="0" y="0" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="10">• Idempotency keys</text>
-        <text x="0" y="18" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="10">• Circuit breaking</text>
-        <text x="0" y="36" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="10">• Retry backoff</text>
-      </g>
-      <rect x="12" y="150" width="146" height="50" rx="4" fill="#040404" stroke="#F59E0B" stroke-width="1"/>
-      <text x="18" y="170" fill="#FCD34D" font-family="'Courier New', monospace" font-size="9">Dead Letter Queue</text>
-      <text x="18" y="185" fill="#10B981" font-family="'Courier New', monospace" font-size="9">Zero Lost Messages</text>
-    </g>
-
-    <!-- Pillar 3: Security & Limits -->
-    <g transform="translate(364, 0)">
-      <rect width="170" height="220" rx="6" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1.5"/>
-      <rect x="12" y="12" width="60" height="18" rx="2" fill="rgba(245, 158, 11, 0.2)"/>
-      <text x="18" y="25" fill="#FCD34D" font-family="'Courier New', monospace" font-size="10" font-weight="bold">PILLAR 3</text>
-      <text x="12" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">Protection</text>
-      <g transform="translate(12, 75)">
-        <text x="0" y="0" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="10">• Sliding window limit</text>
-        <text x="0" y="18" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="10">• Payload size limits</text>
-        <text x="0" y="36" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="10">• Helmet headers</text>
-      </g>
-      <rect x="12" y="150" width="146" height="50" rx="4" fill="#040404" stroke="rgba(255,255,255,0.1)"/>
-      <text x="18" y="170" fill="#EF4444" font-family="'Courier New', monospace" font-size="9">429 Too Many Req</text>
-      <text x="18" y="185" fill="#10B981" font-family="'Courier New', monospace" font-size="9">DDoS Defended</text>
-    </g>
-
-    <!-- Pillar 4: Lifecycle Ops -->
-    <g transform="translate(546, 0)">
-      <rect width="174" height="220" rx="6" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1.5"/>
-      <rect x="12" y="12" width="60" height="18" rx="2" fill="rgba(245, 158, 11, 0.2)"/>
-      <text x="18" y="25" fill="#FCD34D" font-family="'Courier New', monospace" font-size="10" font-weight="bold">PILLAR 4</text>
-      <text x="12" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="15" font-weight="700">Lifecycle</text>
-      <g transform="translate(12, 75)">
-        <text x="0" y="0" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="10">• SIGTERM handling</text>
-        <text x="0" y="18" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="10">• Drain in-flight reqs</text>
-        <text x="0" y="36" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="10">• Health &amp; liveness probes</text>
-      </g>
-      <rect x="12" y="150" width="150" height="50" rx="4" fill="#040404" stroke="rgba(255,255,255,0.1)"/>
-      <text x="18" y="170" fill="#10B981" font-family="'Courier New', monospace" font-size="9">process.on("SIGTERM")</text>
-      <text x="18" y="185" fill="#10B981" font-family="'Courier New', monospace" font-size="9">Graceful Exit: 0 Err</text>
-    </g>
+  <!-- Minimal Header Pill -->
+  <g transform="translate(48, 48)">
+    <rect width="148" height="24" rx="12" fill="rgba(245, 158, 11, 0.1)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1"/>
+    <circle cx="12" cy="12" r="3.5" fill="#F59E0B"/>
+    <text x="24" y="16" fill="#FCD34D" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" letter-spacing="1">PRODUCTION READY</text>
   </g>
 
-  <!-- Corner Tech Accent -->
-  <path d="M 770 20 L 780 20 L 780 30" stroke="#F59E0B" stroke-width="2" fill="none"/>
-  <path d="M 20 430 L 20 440 L 30 440" stroke="#F59E0B" stroke-width="2" fill="none"/>
+  <!-- Central Transformation Evolution: Script vs Production System -->
+  <g transform="translate(400, 230)">
+    <!-- Left: Prototype / Working Code Script Card -->
+    <g transform="translate(-180, 0)">
+      <rect x="-70" y="-55" width="140" height="110" rx="8" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5"/>
+      <circle cx="0" cy="-22" r="14" fill="rgba(255, 255, 255, 0.08)"/>
+      <text x="0" y="-17" text-anchor="middle" fill="rgba(255, 255, 255, 0.5)" font-family="'JetBrains Mono', monospace" font-size="10">DEV</text>
+      
+      <text x="0" y="16" text-anchor="middle" fill="rgba(255, 255, 255, 0.8)" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700">WORKING CODE</text>
+      <text x="0" y="34" text-anchor="middle" fill="rgba(255, 255, 255, 0.4)" font-family="'JetBrains Mono', monospace" font-size="9">Happy Path Only</text>
+    </g>
+
+    <!-- Center Evolution Arrow -->
+    <g transform="translate(0, 0)">
+      <circle cx="0" cy="0" r="22" fill="#0A0A10" stroke="#F59E0B" stroke-width="1.5"/>
+      <path d="M -8 0 L 8 0 M 3 -5 L 8 0 L 3 5" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <!-- Right: Hardened Production-Ready System -->
+    <g transform="translate(180, 0)">
+      <rect x="-70" y="-55" width="140" height="110" rx="8" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="2"/>
+      <circle cx="0" cy="-22" r="14" fill="#F59E0B"/>
+      <text x="0" y="-17" text-anchor="middle" fill="#000000" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold">PROD</text>
+
+      <text x="0" y="16" text-anchor="middle" fill="#FFFFFF" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700">PROD READY</text>
+      <text x="0" y="34" text-anchor="middle" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="9">Telemetry • Retries</text>
+    </g>
+  </g>
 </svg>

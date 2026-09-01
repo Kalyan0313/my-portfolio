@@ -1,76 +1,73 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg-grad-10" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#080808"/>
-      <stop offset="50%" stop-color="#140D0E"/>
-      <stop offset="100%" stop-color="#190A10"/>
+    <linearGradient id="bg10" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070709"/>
+      <stop offset="50%" stop-color="#140A10"/>
+      <stop offset="100%" stop-color="#14110A"/>
     </linearGradient>
-    <filter id="glow-10" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="8" result="blur"/>
+    <radialGradient id="glow10" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#EC4899" stop-opacity="0.20"/>
+      <stop offset="50%" stop-color="#10B981" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dot-grid10" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="rgba(255, 255, 255, 0.05)"/>
+    </pattern>
+    <filter id="soft-glow10" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
-    <pattern id="grid-10" width="30" height="30" patternUnits="userSpaceOnUse">
-      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
-    </pattern>
   </defs>
 
-  <rect width="800" height="450" fill="url(#bg-grad-10)"/>
-  <rect width="800" height="450" fill="url(#grid-10)"/>
-  <circle cx="250" cy="240" r="160" fill="rgba(236, 72, 153, 0.07)" filter="url(#glow-10)"/>
+  <rect width="800" height="450" fill="url(#bg10)"/>
+  <rect width="800" height="450" fill="url(#dot-grid10)"/>
+  <circle cx="400" cy="225" r="220" fill="url(#glow10)"/>
 
-  <!-- Badges -->
-  <rect x="40" y="36" width="150" height="26" rx="3" fill="rgba(236, 72, 153, 0.12)" stroke="#EC4899" stroke-width="1"/>
-  <text x="52" y="53" fill="#EC4899" font-family="'Courier New', monospace" font-size="12" font-weight="bold" letter-spacing="1.5">QUALITY ASSURANCE</text>
+  <!-- Decorative Corner Brackets -->
+  <path d="M 32 48 L 32 32 L 48 32" stroke="rgba(236, 72, 153, 0.4)" stroke-width="1.5" fill="none"/>
+  <path d="M 768 48 L 768 32 L 752 32" stroke="rgba(236, 72, 153, 0.4)" stroke-width="1.5" fill="none"/>
+  <path d="M 32 402 L 32 418 L 48 418" stroke="rgba(236, 72, 153, 0.4)" stroke-width="1.5" fill="none"/>
+  <path d="M 768 402 L 768 418 L 752 418" stroke="rgba(236, 72, 153, 0.4)" stroke-width="1.5" fill="none"/>
 
-  <rect x="200" y="36" width="150" height="26" rx="3" fill="rgba(245, 158, 11, 0.1)" stroke="#F59E0B" stroke-width="1"/>
-  <text x="212" y="53" fill="#F59E0B" font-family="'Courier New', monospace" font-size="12" letter-spacing="1">EDGE CASE MATRIX</text>
-
-  <!-- Title -->
-  <text x="40" y="102" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" letter-spacing="-0.5">Testing Beyond the Happy Path</text>
-  <text x="40" y="128" fill="rgba(255, 255, 255, 0.55)" font-family="'Courier New', monospace" font-size="13">Handling Zero, Null, Timeout, Duplicate Concurrent Webhooks &amp; Network Partitions</text>
-
-  <!-- Visual Test Matrix and Incident Lessons -->
-  <g transform="translate(40, 160)">
-    <!-- Happy Path Card (Simple vs Vulnerable) -->
-    <g transform="translate(0, 0)">
-      <rect width="345" height="220" rx="6" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(239, 68, 68, 0.3)" stroke-width="1.5"/>
-      <rect x="14" y="12" width="115" height="18" rx="2" fill="rgba(239, 68, 68, 0.2)"/>
-      <text x="20" y="25" fill="#F87171" font-family="'Courier New', monospace" font-size="10" font-weight="bold">HAPPY PATH ONLY</text>
-      <text x="14" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Fragile In Production</text>
-      
-      <g transform="translate(14, 75)">
-        <text x="0" y="0" fill="#EF4444" font-family="'Courier New', monospace" font-size="11">✗ Assumes network always healthy</text>
-        <text x="0" y="20" fill="#EF4444" font-family="'Courier New', monospace" font-size="11">✗ Fails on duplicated webhooks</text>
-        <text x="0" y="40" fill="#EF4444" font-family="'Courier New', monospace" font-size="11">✗ Unhandled null/undefined fields</text>
-        <text x="0" y="60" fill="#EF4444" font-family="'Courier New', monospace" font-size="11">✗ Silent crashes on timeouts</text>
-      </g>
-
-      <rect x="14" y="150" width="317" height="50" rx="4" fill="#040404" stroke="rgba(239, 68, 68, 0.3)"/>
-      <text x="22" y="172" fill="#EF4444" font-family="'Courier New', monospace" font-size="10">FAIL: 2 duplicate requests charged user twice</text>
-      <text x="22" y="188" fill="rgba(255,255,255,0.4)" font-family="'Courier New', monospace" font-size="9">Lack of Idempotency testing</text>
-    </g>
-
-    <!-- Resilient Edge Case Card -->
-    <g transform="translate(375, 0)">
-      <rect width="345" height="220" rx="6" fill="rgba(16, 185, 129, 0.06)" stroke="#10B981" stroke-width="1.5"/>
-      <rect x="14" y="12" width="130" height="18" rx="2" fill="rgba(16, 185, 129, 0.2)"/>
-      <text x="20" y="25" fill="#10B981" font-family="'Courier New', monospace" font-size="10" font-weight="bold">DEFENSIVE TESTING</text>
-      <text x="14" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Resilient Architecture</text>
-      
-      <g transform="translate(14, 75)">
-        <text x="0" y="0" fill="#10B981" font-family="'Courier New', monospace" font-size="11">✓ Idempotency Key deduplication</text>
-        <text x="0" y="20" fill="#10B981" font-family="'Courier New', monospace" font-size="11">✓ Exponential backoff + jitter</text>
-        <text x="0" y="40" fill="#10B981" font-family="'Courier New', monospace" font-size="11">✓ Invariant boundary assertions</text>
-        <text x="0" y="60" fill="#10B981" font-family="'Courier New', monospace" font-size="11">✓ Graceful degradation fallbacks</text>
-      </g>
-
-      <rect x="14" y="150" width="317" height="50" rx="4" fill="#040404" stroke="rgba(16, 185, 129, 0.3)"/>
-      <text x="22" y="172" fill="#10B981" font-family="'Courier New', monospace" font-size="10">PASS: 50 concurrent requests ➔ 1 order created</text>
-      <text x="22" y="188" fill="#FCD34D" font-family="'Courier New', monospace" font-size="9">Zero double charges • 100% Deterministic</text>
-    </g>
+  <!-- Minimal Header Pill -->
+  <g transform="translate(48, 48)">
+    <rect width="146" height="24" rx="12" fill="rgba(236, 72, 153, 0.1)" stroke="rgba(236, 72, 153, 0.3)" stroke-width="1"/>
+    <circle cx="12" cy="12" r="3.5" fill="#EC4899"/>
+    <text x="24" y="16" fill="#F472B6" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" letter-spacing="1">DEFENSIVE TESTING</text>
   </g>
 
-  <!-- Corner Tech Accent -->
-  <path d="M 770 20 L 780 20 L 780 30" stroke="#EC4899" stroke-width="2" fill="none"/>
-  <path d="M 20 430 L 20 440 L 30 440" stroke="#EC4899" stroke-width="2" fill="none"/>
+  <!-- Central Defensive Resilience Shield Art -->
+  <g transform="translate(400, 230)">
+    <!-- Outer Chaos Perimeter Barrier -->
+    <circle cx="0" cy="0" r="130" fill="none" stroke="rgba(236, 72, 153, 0.15)" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+    <!-- Central Emerald Safety Shield -->
+    <polygon points="0,-75 65,-40 65,30 0,80 -65,30 -65,-40" fill="rgba(16, 185, 129, 0.12)" stroke="#10B981" stroke-width="2.5"/>
+    <polygon points="0,-55 45,-28 45,20 0,58 -45,20 -45,-28" fill="#0A0F0D" stroke="#10B981" stroke-width="1.5"/>
+
+    <!-- Checkmark Emblem -->
+    <path d="M -16 0 L -4 12 L 18 -10" fill="none" stroke="#10B981" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#soft-glow10)"/>
+
+    <!-- 3 Edge Case Test Probes -->
+    <!-- Probe 1 (Top Left: Timeout Failure) -->
+    <g transform="translate(-150, -60)">
+      <circle cx="0" cy="0" r="22" fill="#0A0A10" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+      <text x="0" y="4" text-anchor="middle" fill="#F87171" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold">TIMEOUT</text>
+      <line x1="20" y1="10" x2="60" y2="25" stroke="#F87171" stroke-width="1.5" stroke-dasharray="3,2"/>
+    </g>
+
+    <!-- Probe 2 (Right: Concurrent Race Key) -->
+    <g transform="translate(160, 0)">
+      <circle cx="0" cy="0" r="24" fill="#0A0A10" stroke="#F59E0B" stroke-width="1.5"/>
+      <text x="0" y="4" text-anchor="middle" fill="#FCD34D" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold">IDEMPOTENT</text>
+      <line x1="-24" y1="0" x2="-65" y2="0" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="3,2"/>
+    </g>
+
+    <!-- Probe 3 (Bottom Left: Null/Boundary) -->
+    <g transform="translate(-150, 60)">
+      <circle cx="0" cy="0" r="22" fill="#0A0A10" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+      <text x="0" y="4" text-anchor="middle" fill="#93C5FD" font-family="'JetBrains Mono', monospace" font-size="9" font-weight="bold">NULL/ZERO</text>
+      <line x1="20" y1="-10" x2="60" y2="-25" stroke="#93C5FD" stroke-width="1.5" stroke-dasharray="3,2"/>
+    </g>
+  </g>
 </svg>
