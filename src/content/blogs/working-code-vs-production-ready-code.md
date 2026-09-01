@@ -5,6 +5,7 @@ date: "Aug 2026"
 readTime: "8 min read"
 topic: "Engineering Philosophy"
 featured: true
+thumbnail: "/images/blogs/working-code-vs-production-ready-code.svg"
 tags:
   - Software Engineering
   - Production Systems

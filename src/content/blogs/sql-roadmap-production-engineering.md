@@ -5,6 +5,7 @@ date: "Aug 2026"
 readTime: "11 min read"
 topic: "Databases & Performance"
 featured: true
+thumbnail: "/images/blogs/sql-roadmap-production-engineering.svg"
 tags:
   - SQL
   - PostgreSQL

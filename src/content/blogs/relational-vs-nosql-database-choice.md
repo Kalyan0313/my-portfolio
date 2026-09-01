@@ -5,6 +5,7 @@ date: "Aug 2026"
 readTime: "9 min read"
 topic: "Databases & Architecture"
 featured: true
+thumbnail: "/images/blogs/relational-vs-nosql-database-choice.svg"
 tags:
   - PostgreSQL
   - MongoDB

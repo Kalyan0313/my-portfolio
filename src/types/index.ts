@@ -104,6 +104,7 @@ export interface EngineeringNote {
   readTime: string;
   topic: string;
   summary: string;
+  thumbnail?: string;
   tags?: string[];
   featured?: boolean;
   keyTakeaways: string[];

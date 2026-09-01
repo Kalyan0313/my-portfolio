@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad-3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050505"/>
+      <stop offset="50%" stop-color="#0E120A"/>
+      <stop offset="100%" stop-color="#14180A"/>
+    </linearGradient>
+    <filter id="glow-3" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <pattern id="grid-3" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg-grad-3)"/>
+  <rect width="800" height="450" fill="url(#grid-3)"/>
+  <circle cx="200" cy="280" r="140" fill="rgba(245, 158, 11, 0.08)" filter="url(#glow-3)"/>
+
+  <!-- Badges -->
+  <rect x="40" y="36" width="160" height="26" rx="3" fill="rgba(245, 158, 11, 0.1)" stroke="#F59E0B" stroke-width="1"/>
+  <text x="52" y="53" fill="#F59E0B" font-family="'Courier New', monospace" font-size="12" font-weight="bold" letter-spacing="1.5">NODE.JS RUNTIME</text>
+
+  <rect x="210" y="36" width="150" height="26" rx="3" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"/>
+  <text x="222" y="53" fill="#E5E7EB" font-family="'Courier New', monospace" font-size="12" letter-spacing="1">SUB-MILLISECOND</text>
+
+  <!-- Title -->
+  <text x="40" y="102" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" letter-spacing="-0.5">Low Latency &amp; High Availability</text>
+  <text x="40" y="128" fill="rgba(255, 255, 255, 0.55)" font-family="'Courier New', monospace" font-size="13">Event Loop Optimization • Libuv Threadpool • PM2 Cluster Scaling</text>
+
+  <!-- Diagram Visuals: Event Loop Wheel & Worker Cluster -->
+  <!-- Event Loop Orbit Diagram -->
+  <g transform="translate(180, 280)">
+    <circle cx="0" cy="0" r="90" fill="none" stroke="rgba(245, 158, 11, 0.25)" stroke-width="2" stroke-dasharray="6,4"/>
+    <circle cx="0" cy="0" r="50" fill="rgba(245, 158, 11, 0.08)" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="0" y="-5" text-anchor="middle" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="13" font-weight="bold">EVENT</text>
+    <text x="0" y="12" text-anchor="middle" fill="#FCD34D" font-family="'Courier New', monospace" font-size="11" font-weight="bold">LOOP</text>
+
+    <!-- Phases on circle -->
+    <!-- Timers -->
+    <g transform="translate(0, -90)">
+      <rect x="-35" y="-12" width="70" height="24" rx="3" fill="#0A0A0A" stroke="#F59E0B" stroke-width="1"/>
+      <text x="0" y="4" text-anchor="middle" fill="#F59E0B" font-family="'Courier New', monospace" font-size="9" font-weight="bold">TIMERS</text>
+    </g>
+    <!-- Poll / IO -->
+    <g transform="translate(90, 0)">
+      <rect x="-30" y="-12" width="60" height="24" rx="3" fill="#0A0A0A" stroke="#10B981" stroke-width="1"/>
+      <text x="0" y="4" text-anchor="middle" fill="#10B981" font-family="'Courier New', monospace" font-size="9" font-weight="bold">I/O POLL</text>
+    </g>
+    <!-- Check -->
+    <g transform="translate(0, 90)">
+      <rect x="-35" y="-12" width="70" height="24" rx="3" fill="#0A0A0A" stroke="#F59E0B" stroke-width="1"/>
+      <text x="0" y="4" text-anchor="middle" fill="#F59E0B" font-family="'Courier New', monospace" font-size="9" font-weight="bold">CHECK</text>
+    </g>
+    <!-- Close -->
+    <g transform="translate(-90, 0)">
+      <rect x="-30" y="-12" width="60" height="24" rx="3" fill="#0A0A0A" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <text x="0" y="4" text-anchor="middle" fill="#E5E7EB" font-family="'Courier New', monospace" font-size="9" font-weight="bold">CLOSE</text>
+    </g>
+  </g>
+
+  <!-- Right: Architecture Matrix / Latency Specs -->
+  <g transform="translate(380, 160)">
+    <!-- Worker Cluster Box -->
+    <rect x="0" y="0" width="380" height="105" rx="6" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1.5"/>
+    <text x="16" y="26" fill="#F59E0B" font-family="'Courier New', monospace" font-size="11" font-weight="bold">CLUSTER IPC • ZERO-DOWNTIME RELOAD</text>
+    
+    <!-- Worker Cards -->
+    <rect x="16" y="40" width="80" height="50" rx="3" fill="#050505" stroke="#10B981" stroke-width="1"/>
+    <text x="24" y="58" fill="#10B981" font-family="'Courier New', monospace" font-size="10">Worker #1</text>
+    <text x="24" y="76" fill="rgba(255,255,255,0.4)" font-family="'Courier New', monospace" font-size="9">CPU Core 0</text>
+
+    <rect x="106" y="40" width="80" height="50" rx="3" fill="#050505" stroke="#10B981" stroke-width="1"/>
+    <text x="114" y="58" fill="#10B981" font-family="'Courier New', monospace" font-size="10">Worker #2</text>
+    <text x="114" y="76" fill="rgba(255,255,255,0.4)" font-family="'Courier New', monospace" font-size="9">CPU Core 1</text>
+
+    <rect x="196" y="40" width="80" height="50" rx="3" fill="#050505" stroke="#10B981" stroke-width="1"/>
+    <text x="204" y="58" fill="#10B981" font-family="'Courier New', monospace" font-size="10">Worker #3</text>
+    <text x="204" y="76" fill="rgba(255,255,255,0.4)" font-family="'Courier New', monospace" font-size="9">CPU Core 2</text>
+
+    <rect x="286" y="40" width="80" height="50" rx="3" fill="#050505" stroke="#10B981" stroke-width="1"/>
+    <text x="294" y="58" fill="#10B981" font-family="'Courier New', monospace" font-size="10">Worker #4</text>
+    <text x="294" y="76" fill="rgba(255,255,255,0.4)" font-family="'Courier New', monospace" font-size="9">CPU Core 3</text>
+
+    <!-- Bottom Latency Metrics Card -->
+    <rect x="0" y="120" width="380" height="100" rx="6" fill="rgba(245, 158, 11, 0.08)" stroke="#F59E0B" stroke-width="1.5"/>
+    <text x="16" y="145" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="bold">Production Benchmark Results</text>
+    
+    <g transform="translate(16, 160)">
+      <text x="0" y="15" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">p99 Latency:</text>
+      <text x="100" y="15" fill="#10B981" font-family="'Courier New', monospace" font-size="12" font-weight="bold">&lt; 4.2ms</text>
+      
+      <text x="190" y="15" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">Throughput:</text>
+      <text x="280" y="15" fill="#FCD34D" font-family="'Courier New', monospace" font-size="12" font-weight="bold">18,500 RPS</text>
+
+      <text x="0" y="38" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">Event Loop Lag:</text>
+      <text x="110" y="38" fill="#10B981" font-family="'Courier New', monospace" font-size="12" font-weight="bold">&lt; 1.1ms</text>
+
+      <text x="190" y="38" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">Uptime SLA:</text>
+      <text x="280" y="38" fill="#10B981" font-family="'Courier New', monospace" font-size="12" font-weight="bold">99.99%</text>
+    </g>
+  </g>
+
+  <!-- Corner Tech Accent -->
+  <path d="M 770 20 L 780 20 L 780 30" stroke="#F59E0B" stroke-width="2" fill="none"/>
+  <path d="M 20 430 L 20 440 L 30 440" stroke="#F59E0B" stroke-width="2" fill="none"/>
+</svg>

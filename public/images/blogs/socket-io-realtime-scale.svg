@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad-8" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080808"/>
+      <stop offset="50%" stop-color="#090E17"/>
+      <stop offset="100%" stop-color="#141009"/>
+    </linearGradient>
+    <filter id="glow-8" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <pattern id="grid-8" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg-grad-8)"/>
+  <rect width="800" height="450" fill="url(#grid-8)"/>
+  <circle cx="500" cy="270" r="150" fill="rgba(6, 182, 212, 0.08)" filter="url(#glow-8)"/>
+
+  <!-- Badges -->
+  <rect x="40" y="36" width="160" height="26" rx="3" fill="rgba(6, 182, 212, 0.12)" stroke="#06B6D4" stroke-width="1"/>
+  <text x="52" y="53" fill="#06B6D4" font-family="'Courier New', monospace" font-size="12" font-weight="bold" letter-spacing="1.5">REAL-TIME SCALE</text>
+
+  <rect x="210" y="36" width="150" height="26" rx="3" fill="rgba(245, 158, 11, 0.1)" stroke="#F59E0B" stroke-width="1"/>
+  <text x="222" y="53" fill="#F59E0B" font-family="'Courier New', monospace" font-size="12" letter-spacing="1">ROOM PARTITION</text>
+
+  <!-- Title -->
+  <text x="40" y="102" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" letter-spacing="-0.5">Socket.IO Real-Time Architecture</text>
+  <text x="40" y="128" fill="rgba(255, 255, 255, 0.55)" font-family="'Courier New', monospace" font-size="13">Room Sharding • Redis Streams Adapter • Connection Lifecycles &amp; Reconnect</text>
+
+  <!-- Multi-Node WebSockets & Redis Adapter Diagram -->
+  <g transform="translate(40, 160)">
+    <!-- Socket Server Node A -->
+    <g transform="translate(0, 0)">
+      <rect width="210" height="130" rx="6" fill="rgba(6, 182, 212, 0.08)" stroke="#06B6D4" stroke-width="1.5"/>
+      <rect x="12" y="12" width="90" height="18" rx="2" fill="rgba(6, 182, 212, 0.2)"/>
+      <text x="18" y="25" fill="#22D3EE" font-family="'Courier New', monospace" font-size="10" font-weight="bold">NODE INSTANCE A</text>
+      <text x="12" y="52" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="700">Room: trip:2804</text>
+      
+      <rect x="12" y="65" width="85" height="50" rx="3" fill="#040404" stroke="rgba(255,255,255,0.15)"/>
+      <text x="20" y="84" fill="#06B6D4" font-family="'Courier New', monospace" font-size="10">Driver #14</text>
+      <text x="20" y="102" fill="#10B981" font-family="'Courier New', monospace" font-size="9">WS Active</text>
+
+      <rect x="105" y="65" width="92" height="50" rx="3" fill="#040404" stroke="rgba(255,255,255,0.15)"/>
+      <text x="113" y="84" fill="#E5E7EB" font-family="'Courier New', monospace" font-size="10">Passenger #8</text>
+      <text x="113" y="102" fill="#10B981" font-family="'Courier New', monospace" font-size="9">WS Active</text>
+    </g>
+
+    <!-- Socket Server Node B -->
+    <g transform="translate(510, 0)">
+      <rect width="210" height="130" rx="6" fill="rgba(6, 182, 212, 0.08)" stroke="#06B6D4" stroke-width="1.5"/>
+      <rect x="12" y="12" width="90" height="18" rx="2" fill="rgba(6, 182, 212, 0.2)"/>
+      <text x="18" y="25" fill="#22D3EE" font-family="'Courier New', monospace" font-size="10" font-weight="bold">NODE INSTANCE B</text>
+      <text x="12" y="52" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="14" font-weight="700">Room: trip:2804</text>
+      
+      <rect x="12" y="65" width="90" height="50" rx="3" fill="#040404" stroke="rgba(255,255,255,0.15)"/>
+      <text x="20" y="84" fill="#E5E7EB" font-family="'Courier New', monospace" font-size="10">Admin Ops</text>
+      <text x="20" y="102" fill="#10B981" font-family="'Courier New', monospace" font-size="9">WS Active</text>
+
+      <rect x="110" y="65" width="88" height="50" rx="3" fill="#040404" stroke="rgba(255,255,255,0.15)"/>
+      <text x="118" y="84" fill="#F59E0B" font-family="'Courier New', monospace" font-size="10">Fleet Bot</text>
+      <text x="118" y="102" fill="#10B981" font-family="'Courier New', monospace" font-size="9">WS Active</text>
+    </g>
+
+    <!-- Central Redis PubSub Adapter Layer -->
+    <g transform="translate(0, 150)">
+      <rect width="720" height="70" rx="6" fill="rgba(245, 158, 11, 0.08)" stroke="#F59E0B" stroke-width="1.5"/>
+      
+      <text x="20" y="28" fill="#FCD34D" font-family="'Courier New', monospace" font-size="12" font-weight="bold">REDIS EMITTER &amp; ADAPTER (Cross-Cluster Pub/Sub)</text>
+      <text x="20" y="50" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">io.to("trip:2804").emit("loc:update", { lat: 17.385, lng: 78.486 }) ➔ Dispatched across all servers in &lt; 2ms</text>
+    </g>
+  </g>
+
+  <!-- Connectors from Node A and Node B to Redis Adapter -->
+  <path d="M 145 290 L 145 310" stroke="#06B6D4" stroke-width="2" stroke-dasharray="3,3"/>
+  <path d="M 655 290 L 655 310" stroke="#06B6D4" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Corner Tech Accent -->
+  <path d="M 770 20 L 780 20 L 780 30" stroke="#06B6D4" stroke-width="2" fill="none"/>
+  <path d="M 20 430 L 20 440 L 30 440" stroke="#06B6D4" stroke-width="2" fill="none"/>
+</svg>

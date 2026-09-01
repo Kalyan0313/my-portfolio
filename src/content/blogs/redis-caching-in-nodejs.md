@@ -5,6 +5,7 @@ date: "Aug 2026"
 readTime: "12 min read"
 topic: "Backend & Caching"
 featured: true
+thumbnail: "/images/blogs/redis-caching-in-nodejs.svg"
 tags:
   - Redis
   - Node.js

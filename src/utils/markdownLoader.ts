@@ -126,6 +126,7 @@ export function parseMarkdownFile(rawContent: string, fallbackId: string): Engin
     readTime: meta.readTime || '5 min read',
     topic: meta.topic || 'Engineering',
     featured: Boolean(meta.featured),
+    thumbnail: meta.thumbnail || meta.image || meta.coverImage || undefined,
     tags: Array.isArray(meta.tags) ? meta.tags : [],
     summary: meta.summary || bodyMarkdown.slice(0, 160) + '...',
     keyTakeaways: Array.isArray(meta.keyTakeaways) ? meta.keyTakeaways : [],

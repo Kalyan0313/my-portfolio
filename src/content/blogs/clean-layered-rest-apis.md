@@ -4,6 +4,7 @@ title: "Designing Clean Layered REST APIs with Express.js & TypeScript"
 date: "Jul 2026"
 readTime: "12 min read"
 topic: "Architecture & API Design"
+thumbnail: "/images/blogs/clean-layered-rest-apis.svg"
 tags:
   - Express
   - TypeScript

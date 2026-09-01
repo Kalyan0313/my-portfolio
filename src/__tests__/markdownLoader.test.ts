@@ -42,6 +42,19 @@ const add = (a: number, b: number): number => a + b;
     expect(note.htmlContent).toContain('<code class="hljs typescript">');
   });
 
+  it('correctly extracts thumbnail image url from frontmatter', () => {
+    const rawWithThumb = `---
+id: thumb-test
+title: "Article with Cover"
+thumbnail: "/images/blogs/sample.svg"
+---
+
+# Content
+`;
+    const note = parseMarkdownFile(rawWithThumb, 'thumb-test');
+    expect(note.thumbnail).toBe('/images/blogs/sample.svg');
+  });
+
   it('handles unescaped internal quotes cleanly', () => {
     const rawWithQuotes = `---
 id: quotes-test

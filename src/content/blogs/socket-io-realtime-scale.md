@@ -5,6 +5,7 @@ date: "Jun 2026"
 readTime: "6 min read"
 topic: "Real-Time Systems"
 featured: false
+thumbnail: "/images/blogs/socket-io-realtime-scale.svg"
 tags:
   - Socket.IO
   - WebSockets

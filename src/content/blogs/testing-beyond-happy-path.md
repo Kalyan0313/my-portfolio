@@ -5,6 +5,7 @@ date: "Aug 2026"
 readTime: "7 min read"
 topic: "Software Quality & Testing"
 featured: true
+thumbnail: "/images/blogs/testing-beyond-happy-path.svg"
 tags:
   - Testing
   - Quality Assurance

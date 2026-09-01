@@ -5,6 +5,7 @@ date: "Aug 2026"
 readTime: "7 min read"
 topic: "Engineering Philosophy"
 featured: true
+thumbnail: "/images/blogs/engineering-lessons-production-systems.svg"
 tags:
   - Software Engineering
   - System Design

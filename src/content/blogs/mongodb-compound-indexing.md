@@ -5,6 +5,7 @@ date: "May 2026"
 readTime: "6 min read"
 topic: "Databases & Performance"
 featured: false
+thumbnail: "/images/blogs/mongodb-compound-indexing.svg"
 tags:
   - MongoDB
   - Indexing

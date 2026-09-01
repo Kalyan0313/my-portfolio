@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad-9" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080808"/>
+      <stop offset="50%" stop-color="#0B131A"/>
+      <stop offset="100%" stop-color="#141108"/>
+    </linearGradient>
+    <filter id="glow-9" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <pattern id="grid-9" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg-grad-9)"/>
+  <rect width="800" height="450" fill="url(#grid-9)"/>
+  <circle cx="400" cy="225" r="160" fill="rgba(59, 130, 246, 0.07)" filter="url(#glow-9)"/>
+
+  <!-- Badges -->
+  <rect x="40" y="36" width="150" height="26" rx="3" fill="rgba(59, 130, 246, 0.12)" stroke="#3B82F6" stroke-width="1"/>
+  <text x="52" y="53" fill="#3B82F6" font-family="'Courier New', monospace" font-size="12" font-weight="bold" letter-spacing="1.5">SQL ENGINEERING</text>
+
+  <rect x="200" y="36" width="140" height="26" rx="3" fill="rgba(245, 158, 11, 0.1)" stroke="#F59E0B" stroke-width="1"/>
+  <text x="212" y="53" fill="#F59E0B" font-family="'Courier New', monospace" font-size="12" letter-spacing="1">QUERY OPTIMIZER</text>
+
+  <!-- Title -->
+  <text x="40" y="102" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" letter-spacing="-0.5">Production SQL Engineering</text>
+  <text x="40" y="128" fill="rgba(255, 255, 255, 0.55)" font-family="'Courier New', monospace" font-size="13">Query Planner Analysis • Window Functions • B-Tree Indexing • Transactions</text>
+
+  <!-- Visual 3 Tier Roadmap Pillars -->
+  <g transform="translate(40, 160)">
+    <!-- Pillar 1: Advanced Querying -->
+    <g transform="translate(0, 0)">
+      <rect width="225" height="220" rx="6" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(59, 130, 246, 0.3)" stroke-width="1.5"/>
+      <rect x="14" y="12" width="75" height="18" rx="2" fill="rgba(59, 130, 246, 0.2)"/>
+      <text x="20" y="25" fill="#60A5FA" font-family="'Courier New', monospace" font-size="10" font-weight="bold">TIER 1</text>
+      <text x="14" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">Analytical SQL</text>
+      <g transform="translate(14, 75)">
+        <text x="0" y="0" fill="rgba(255,255,255,0.65)" font-family="'Courier New', monospace" font-size="11">• ROW_NUMBER() OVER</text>
+        <text x="0" y="20" fill="rgba(255,255,255,0.65)" font-family="'Courier New', monospace" font-size="11">• LAG() &amp; LEAD() Diff</text>
+        <text x="0" y="40" fill="rgba(255,255,255,0.65)" font-family="'Courier New', monospace" font-size="11">• Recursive CTEs</text>
+        <text x="0" y="60" fill="rgba(255,255,255,0.65)" font-family="'Courier New', monospace" font-size="11">• Partition By Windows</text>
+      </g>
+      <rect x="14" y="155" width="197" height="45" rx="4" fill="#040404" stroke="rgba(59, 130, 246, 0.3)"/>
+      <text x="22" y="174" fill="#60A5FA" font-family="'Courier New', monospace" font-size="10">DENSE_RANK() OVER</text>
+      <text x="22" y="190" fill="#10B981" font-family="'Courier New', monospace" font-size="9">Analytics without extra tables</text>
+    </g>
+
+    <!-- Pillar 2: Execution Planner & Indexes -->
+    <g transform="translate(245, 0)">
+      <rect width="230" height="220" rx="6" fill="rgba(245, 158, 11, 0.08)" stroke="#F59E0B" stroke-width="2"/>
+      <rect x="14" y="12" width="90" height="18" rx="2" fill="#F59E0B"/>
+      <text x="20" y="25" fill="#000000" font-family="'Courier New', monospace" font-size="10" font-weight="bold">CORE FOCUS</text>
+      <text x="14" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">EXPLAIN ANALYZE</text>
+      <g transform="translate(14, 75)">
+        <text x="0" y="0" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="11">• Index Scan vs Seq Scan</text>
+        <text x="0" y="20" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="11">• Bitmap Heap Scans</text>
+        <text x="0" y="40" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="11">• Covering Indexes</text>
+        <text x="0" y="60" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="11">• Partial &amp; GIN Indexes</text>
+      </g>
+      <rect x="14" y="155" width="202" height="45" rx="4" fill="#040404" stroke="#F59E0B" stroke-width="1"/>
+      <text x="22" y="174" fill="#FCD34D" font-family="'Courier New', monospace" font-size="10">Cost: 14.20..18.45 (Index)</text>
+      <text x="22" y="190" fill="#10B981" font-family="'Courier New', monospace" font-size="9">Execution: 0.12ms</text>
+    </g>
+
+    <!-- Pillar 3: Locking & Concurrency -->
+    <g transform="translate(495, 0)">
+      <rect width="225" height="220" rx="6" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
+      <rect x="14" y="12" width="75" height="18" rx="2" fill="rgba(255, 255, 255, 0.15)"/>
+      <text x="20" y="25" fill="#FFFFFF" font-family="'Courier New', monospace" font-size="10" font-weight="bold">TIER 3</text>
+      <text x="14" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">ACID &amp; Locks</text>
+      <g transform="translate(14, 75)">
+        <text x="0" y="0" fill="rgba(255,255,255,0.65)" font-family="'Courier New', monospace" font-size="11">• Row Lock vs Table Lock</text>
+        <text x="0" y="20" fill="rgba(255,255,255,0.65)" font-family="'Courier New', monospace" font-size="11">• SELECT FOR UPDATE</text>
+        <text x="0" y="40" fill="rgba(255,255,255,0.65)" font-family="'Courier New', monospace" font-size="11">• Isolation Levels</text>
+        <text x="0" y="60" fill="rgba(255,255,255,0.65)" font-family="'Courier New', monospace" font-size="11">• Deadlock Prevention</text>
+      </g>
+      <rect x="14" y="155" width="197" height="45" rx="4" fill="#040404" stroke="rgba(255, 255, 255, 0.2)"/>
+      <text x="22" y="174" fill="#10B981" font-family="'Courier New', monospace" font-size="10">BEGIN; ... COMMIT;</text>
+      <text x="22" y="190" fill="rgba(255,255,255,0.5)" font-family="'Courier New', monospace" font-size="9">Serializable transactions</text>
+    </g>
+  </g>
+
+  <!-- Corner Tech Accent -->
+  <path d="M 770 20 L 780 20 L 780 30" stroke="#3B82F6" stroke-width="2" fill="none"/>
+  <path d="M 20 430 L 20 440 L 30 440" stroke="#3B82F6" stroke-width="2" fill="none"/>
+</svg>

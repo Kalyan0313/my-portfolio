@@ -473,6 +473,17 @@ export const NoteModal: React.FC<NoteModalProps> = ({ note, onClose, onShowToast
             gap: '32px'
           }}
         >
+          {/* Article Hero Thumbnail */}
+          {note.thumbnail && (
+            <div style={{ width: '100%', overflow: 'hidden', borderRadius: '4px' }}>
+              <img
+                src={note.thumbnail}
+                alt={note.title}
+                className="note-modal-hero-thumbnail"
+              />
+            </div>
+          )}
+
           {/* Article Header */}
           <div>
             <h1

@@ -5,6 +5,7 @@ date: "Sep 2026"
 readTime: "8 min read"
 topic: "Backend & Systems Design"
 featured: true
+thumbnail: "/images/blogs/low-latency-high-availability-nodejs.svg"
 tags:
   - Node.js
   - Architecture

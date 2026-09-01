@@ -301,22 +301,44 @@ export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote
                     flexDirection: 'column',
                     background: 'rgba(255, 255, 255, 0.015)',
                     border: '1px solid rgba(255, 255, 255, 0.08)',
-                    padding: '24px',
+                    padding: 0,
+                    overflow: 'hidden',
                     transition: 'all 0.25s ease',
                     cursor: 'pointer'
                   }}
                 >
-                  {/* Meta Top: Read Time, Date, Topic */}
+                  {/* Card Thumbnail Image Banner */}
+                  {note.thumbnail && (
+                    <div className="note-thumbnail-container">
+                      <img
+                        src={note.thumbnail}
+                        alt={note.title}
+                        className="note-thumbnail-img"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+
+                  {/* Card Body */}
                   <div
                     style={{
                       display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      marginBottom: '14px',
-                      gap: '8px'
+                      flexDirection: 'column',
+                      flex: 1,
+                      padding: '20px 22px 22px'
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    {/* Meta Top: Read Time, Date, Topic */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginBottom: '14px',
+                        gap: '8px'
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span
                         style={{
                           fontFamily: 'var(--font-mono)',
@@ -440,6 +462,7 @@ export const EngineeringNotes: React.FC<EngineeringNotesProps> = ({ onSelectNote
                     >
                       READ ARTICLE <ArrowUpRight size={13} />
                     </span>
+                    </div>
                   </div>
                 </article>
               ))}

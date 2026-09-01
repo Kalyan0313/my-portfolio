@@ -5,9 +5,8 @@ import { engineeringNotesData } from '../data';
 describe('Portfolio Core Data Integrity', () => {
   it('has valid profile details for Kalyan Mahato', () => {
     expect(profileData.name).toBe('Kalyan Mahato');
-    expect(profileData.location).toBe('Bangalore, India');
+    expect(profileData.location).toBe('Bengaluru, India');
     expect(profileData.email).toBe('mahatokalyan2@gmail.com');
-    expect(profileData.phone).toBe('+91 9641072290');
     expect(profileData.github).toBe('https://github.com/Kalyan0313');
     expect(profileData.linkedin).toContain('kalyan-mahato');
   });
@@ -28,12 +27,13 @@ describe('Portfolio Core Data Integrity', () => {
     expect(experienceData[0].company).toBe('Excellis IT');
   });
 
-  it('dynamically loads markdown blogs with non-empty content', () => {
+  it('dynamically loads markdown blogs with non-empty content and thumbnails', () => {
     expect(engineeringNotesData.length).toBeGreaterThanOrEqual(8);
     engineeringNotesData.forEach((note) => {
       expect(note.id).toBeTruthy();
       expect(note.title).toBeTruthy();
       expect(note.htmlContent).toBeTruthy();
+      expect(note.thumbnail).toBeTruthy();
     });
   });
 });

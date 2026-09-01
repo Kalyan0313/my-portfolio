@@ -5,6 +5,7 @@ date: "Sep 2026"
 readTime: "15 min read"
 topic: "Algorithms & Data Structures"
 featured: true
+thumbnail: "/images/blogs/mastering-data-structure-patterns.svg"
 tags:
   - DSA
   - Algorithms

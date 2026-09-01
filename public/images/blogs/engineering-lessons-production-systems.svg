@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080808"/>
+      <stop offset="50%" stop-color="#120F09"/>
+      <stop offset="100%" stop-color="#1A1305"/>
+    </linearGradient>
+    <filter id="glow-2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <pattern id="grid-2" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bg-grad-2)"/>
+  <rect width="800" height="450" fill="url(#grid-2)"/>
+  <circle cx="650" cy="180" r="160" fill="rgba(245, 158, 11, 0.08)" filter="url(#glow-2)"/>
+
+  <!-- Badges -->
+  <rect x="40" y="36" width="150" height="26" rx="3" fill="rgba(245, 158, 11, 0.1)" stroke="#F59E0B" stroke-width="1"/>
+  <text x="52" y="53" fill="#F59E0B" font-family="'Courier New', monospace" font-size="12" font-weight="bold" letter-spacing="1.5">SYSTEM DESIGN</text>
+
+  <rect x="200" y="36" width="150" height="26" rx="3" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"/>
+  <text x="212" y="53" fill="#E5E7EB" font-family="'Courier New', monospace" font-size="12" letter-spacing="1">ZERO DOWNTIME</text>
+
+  <!-- Title -->
+  <text x="40" y="102" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="800" letter-spacing="-0.5">Changing Systems Safely</text>
+  <text x="40" y="128" fill="rgba(255, 255, 255, 0.55)" font-family="'Courier New', monospace" font-size="13">Expand-Contract Migrations • Canary Releases • Circuit Breakers</text>
+
+  <!-- Diagram Visuals: Production Safe Pipeline -->
+  <g transform="translate(40, 160)">
+    <!-- Stage 1: Expand Phase -->
+    <rect x="0" y="0" width="220" height="220" rx="6" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1.5"/>
+    <rect x="12" y="12" width="75" height="18" rx="2" fill="rgba(245, 158, 11, 0.2)"/>
+    <text x="18" y="25" fill="#FCD34D" font-family="'Courier New', monospace" font-size="10" font-weight="bold">PHASE 1</text>
+    <text x="12" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">1. Expand Schema</text>
+    <text x="12" y="78" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">• Add new nullable col</text>
+    <text x="12" y="98" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">• Dual-write in App v1</text>
+    <text x="12" y="118" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">• Zero lock contention</text>
+    <rect x="12" y="145" width="196" height="55" rx="4" fill="#050505" stroke="rgba(255, 255, 255, 0.1)"/>
+    <text x="20" y="168" fill="#10B981" font-family="'Courier New', monospace" font-size="10">✓ write(old_col &amp; new_col)</text>
+    <text x="20" y="186" fill="rgba(255,255,255,0.4)" font-family="'Courier New', monospace" font-size="10">Old apps keep functioning</text>
+  </g>
+
+  <!-- Flow Connector 1 -->
+  <path d="M 270 270 L 290 270" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4,3"/>
+  <polygon points="290,266 298,270 290,274" fill="#F59E0B"/>
+
+  <!-- Stage 2: Backfill & Canary -->
+  <g transform="translate(300, 160)">
+    <rect x="0" y="0" width="220" height="220" rx="6" fill="rgba(245, 158, 11, 0.1)" stroke="#F59E0B" stroke-width="2"/>
+    <rect x="12" y="12" width="75" height="18" rx="2" fill="#F59E0B"/>
+    <text x="18" y="25" fill="#000000" font-family="'Courier New', monospace" font-size="10" font-weight="bold">PHASE 2</text>
+    <text x="12" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">2. Backfill &amp; Canary</text>
+    <text x="12" y="78" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="11">• Chunked batch update</text>
+    <text x="12" y="98" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="11">• Feature flag 5% ➔ 100%</text>
+    <text x="12" y="118" fill="rgba(255,255,255,0.8)" font-family="'Courier New', monospace" font-size="11">• Circuit breaker guard</text>
+    <rect x="12" y="145" width="196" height="55" rx="4" fill="#050505" stroke="#F59E0B" stroke-width="1"/>
+    <text x="20" y="168" fill="#FCD34D" font-family="'Courier New', monospace" font-size="10">⚡ throttle(1000 rows/sec)</text>
+    <text x="20" y="186" fill="#10B981" font-family="'Courier New', monospace" font-size="10">Canary error rate: 0.00%</text>
+  </g>
+
+  <!-- Flow Connector 2 -->
+  <path d="M 530 270 L 550 270" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4,3"/>
+  <polygon points="550,266 558,270 550,274" fill="#F59E0B"/>
+
+  <!-- Stage 3: Contract Phase -->
+  <g transform="translate(560, 160)">
+    <rect x="0" y="0" width="200" height="220" rx="6" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1.5"/>
+    <rect x="12" y="12" width="75" height="18" rx="2" fill="rgba(245, 158, 11, 0.2)"/>
+    <text x="18" y="25" fill="#FCD34D" font-family="'Courier New', monospace" font-size="10" font-weight="bold">PHASE 3</text>
+    <text x="12" y="55" fill="#FFFFFF" font-family="-apple-system, sans-serif" font-size="16" font-weight="700">3. Contract &amp; Clean</text>
+    <text x="12" y="78" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">• App reads new_col only</text>
+    <text x="12" y="98" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">• Remove dual-write logic</text>
+    <text x="12" y="118" fill="rgba(255,255,255,0.6)" font-family="'Courier New', monospace" font-size="11">• Drop legacy old_col</text>
+    <rect x="12" y="145" width="176" height="55" rx="4" fill="#050505" stroke="rgba(255, 255, 255, 0.1)"/>
+    <text x="20" y="168" fill="#10B981" font-family="'Courier New', monospace" font-size="10">✓ 100% Zero Downtime</text>
+    <text x="20" y="186" fill="rgba(255,255,255,0.4)" font-family="'Courier New', monospace" font-size="10">Clean schema state</text>
+  </g>
+
+  <!-- Corner Accents -->
+  <path d="M 770 20 L 780 20 L 780 30" stroke="#F59E0B" stroke-width="2" fill="none"/>
+  <path d="M 20 430 L 20 440 L 30 440" stroke="#F59E0B" stroke-width="2" fill="none"/>
+</svg>
