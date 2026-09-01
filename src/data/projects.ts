@@ -2,6 +2,171 @@ import type { Project } from '../types';
 
 export const projectsData: Project[] = [
   {
+    id: 'jpm-store',
+    title: 'JPM STORE',
+    tagline: 'Full-Stack E-Commerce Platform with Secure Backend Architecture',
+    badge: 'Full-Stack & Backend Architecture',
+    image: '/images/jpm-store.jpg',
+    featured: true,
+    shortDescription:
+      'A full-stack e-commerce platform with product management, authentication, cart and order workflows, inventory handling, secure APIs, and an admin dashboard.',
+    technologies: [
+      'Node.js',
+      'Express.js',
+      'TypeScript',
+      'MongoDB',
+      'Mongoose',
+      'Next.js',
+      'JWT',
+      'Zod',
+      'Redis',
+      'Docker'
+    ],
+    highlights: [
+      'Designed a layered backend architecture separating controllers, services, repositories, and database access.',
+      'Implemented JWT-based authentication with role-based access control for protected admin operations.',
+      'Added request validation and security middleware to protect APIs from malformed input and common attacks.',
+      'Handled inventory updates using atomic database operations to reduce race conditions during concurrent purchases.',
+      'Implemented structured logging and centralized error handling for easier debugging and maintenance.',
+      'Built product, cart, order, and inventory workflows with a responsive Next.js frontend.'
+    ],
+    githubUrl: 'https://github.com/Kalyan0313/jpm-store',
+    liveUrl: 'https://jpm-store.vercel.app/',
+    caseStudy: {
+      overview:
+        'JPM Store is a full-stack e-commerce platform built to explore how a real-world shopping application can be structured beyond basic CRUD operations. The project covers authentication, product management, inventory, cart and order workflows, API security, validation, and frontend state management.',
+      problem:
+        'A basic e-commerce application can work functionally while still having problems around authentication, invalid input, inventory consistency, API security, and maintainability. The goal was to structure the application so that business logic remained separated from HTTP and database concerns.',
+      goals: [
+        'Build a maintainable full-stack architecture with clear separation of responsibilities.',
+        'Implement secure authentication and role-based access control.',
+        'Handle inventory updates safely when multiple users attempt to purchase the same product.',
+        'Validate API input consistently and provide predictable error responses.',
+        'Create a responsive frontend connected to a structured REST API.'
+      ],
+      systemArchitecture: {
+        title: 'Layered Full-Stack Architecture',
+        description:
+          'The backend follows a layered architecture where requests pass through middleware and controllers before reaching service-level business logic and repository/database operations. The Next.js frontend communicates with the backend through REST APIs.',
+        diagramDescription:
+          'Next.js Frontend -> REST API -> Authentication & Validation Middleware -> Controllers -> Services -> Repositories -> MongoDB'
+      },
+      technicalDecisions: [
+        {
+          topic: 'Backend Architecture',
+          choice: 'Controller-Service-Repository separation',
+          reason:
+            'Separating HTTP handling, business logic, and database operations makes individual parts easier to test, modify, and maintain as the application grows.',
+          alternativesConsidered:
+            'Keeping business logic directly inside Express route handlers.'
+        },
+        {
+          topic: 'Input Validation',
+          choice: 'Schema-based request validation with Zod',
+          reason:
+            'Validating request data at the API boundary prevents malformed data from reaching business logic and provides consistent validation errors.',
+          alternativesConsidered:
+            'Manually validating individual request fields inside controllers.'
+        },
+        {
+          topic: 'Authentication',
+          choice: 'JWT-based authentication with role-based authorization',
+          reason:
+            'JWT provides stateless authentication for the REST API, while role checks restrict administrative operations to authorized users.',
+          alternativesConsidered:
+            'Storing authentication state directly in application memory.'
+        },
+        {
+          topic: 'Inventory Consistency',
+          choice: 'Atomic inventory updates',
+          reason:
+            'Inventory changes need to be handled safely when multiple requests attempt to purchase the same product. Atomic database operations help prevent invalid stock updates.',
+          alternativesConsidered:
+            'Reading the current stock, modifying it in application code, and saving it as a separate operation.'
+        }
+      ],
+      databaseDesign: {
+        overview:
+          'MongoDB is used as the primary database with Mongoose schemas and indexed fields for frequently accessed product, user, and order data.',
+        modelsOrEntities: [
+          {
+            name: 'User',
+            description:
+              'Stores user account information, authentication data, roles, and profile details.'
+          },
+          {
+            name: 'Product',
+            description:
+              'Stores product information including name, description, price, images, category, and available inventory.'
+          },
+          {
+            name: 'Cart',
+            description:
+              'Maintains the products and quantities associated with a user shopping session.'
+          },
+          {
+            name: 'Order & OrderItem',
+            description:
+              'Stores purchased products, quantities, pricing information, customer details, and order status.'
+          }
+        ]
+      },
+      apiAndRealtime: {
+        overview:
+          'The application exposes REST APIs for authentication, products, cart operations, orders, and administrative management.',
+        endpointsOrEvents: [
+          {
+            type: 'REST',
+            name: 'POST /api/auth/login',
+            description:
+              'Authenticates a user and returns the credentials required for authenticated API access.'
+          },
+          {
+            type: 'REST',
+            name: 'GET /api/products',
+            description:
+              'Returns the product catalog with supported filtering, pagination, and product details.'
+          },
+          {
+            type: 'REST',
+            name: 'POST /api/products',
+            description:
+              'Creates a new product through an authenticated administrative endpoint.'
+          },
+          {
+            type: 'REST',
+            name: 'POST /api/orders',
+            description:
+              'Creates an order while validating the requested products and available inventory.'
+          }
+        ]
+      },
+      challengesAndSolutions: [
+        {
+          challenge:
+            'Preventing inconsistent inventory updates when multiple users attempt to purchase limited-stock products.',
+          solution:
+            'Used atomic database update conditions so inventory is modified only when sufficient stock is available.',
+          result:
+            'The checkout workflow avoids blindly overwriting stock values when concurrent purchase requests are processed.'
+        },
+        {
+          challenge:
+            'Keeping business logic from becoming tightly coupled to Express route handlers.',
+          solution:
+            'Moved application logic into service and repository layers, keeping controllers focused on HTTP request and response handling.',
+          result:
+            'The backend is easier to reason about, test, and extend without changing the API layer.'
+        }
+      ],
+      tradeOffsAndLearnings: [
+        'A layered architecture introduces more files and abstractions than putting logic directly inside controllers, but the separation becomes valuable as the number of features grows.',
+        'Inventory operations require more careful database updates than simple CRUD because concurrent requests can otherwise produce inconsistent stock values.',
+        'Validating requests at the API boundary keeps business logic simpler and makes API behavior more predictable.'
+      ]
+    }
+  },
+  {
     id: 'vidya-yatra',
     title: 'VIDYA YATRA',
     tagline: 'Multi-Tenant School Transportation & Live Telemetry Platform',
