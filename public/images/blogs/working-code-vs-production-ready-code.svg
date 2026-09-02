@@ -1,67 +1,62 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg11" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#070709"/>
-      <stop offset="50%" stop-color="#0F0D13"/>
-      <stop offset="100%" stop-color="#14110A"/>
+    <!-- Clean dark canvas gradient -->
+    <linearGradient id="canvas-bg-11" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141419"/>
+      <stop offset="50%" stop-color="#0F0F13"/>
+      <stop offset="100%" stop-color="#0A0A0D"/>
     </linearGradient>
-    <radialGradient id="glow11" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.22"/>
-      <stop offset="50%" stop-color="#10B981" stop-opacity="0.08"/>
-      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="dot-grid11" width="24" height="24" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1" fill="rgba(255, 255, 255, 0.05)"/>
+
+    <!-- Subtle graph paper grid -->
+    <pattern id="canvas-grid-11" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="rgba(255, 255, 255, 0.04)"/>
     </pattern>
-    <filter id="soft-glow11" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-    </filter>
   </defs>
 
-  <rect width="800" height="450" fill="url(#bg11)"/>
-  <rect width="800" height="450" fill="url(#dot-grid11)"/>
-  <circle cx="400" cy="225" r="220" fill="url(#glow11)"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;display=swap');
+    .sketch-title { font-family: 'Caveat', cursive, sans-serif; font-weight: 700; }
+    .sketch-sub { font-family: 'Caveat', cursive, sans-serif; font-weight: 600; }
+  </style>
 
-  <!-- Decorative Corner Brackets -->
-  <path d="M 32 48 L 32 32 L 48 32" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
-  <path d="M 768 48 L 768 32 L 752 32" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
-  <path d="M 32 402 L 32 418 L 48 418" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
-  <path d="M 768 402 L 768 418 L 752 418" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#canvas-bg-11)"/>
+  <rect width="800" height="450" fill="url(#canvas-grid-11)"/>
 
-  <!-- Minimal Header Pill -->
-  <g transform="translate(48, 48)">
-    <rect width="148" height="24" rx="12" fill="rgba(245, 158, 11, 0.1)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1"/>
-    <circle cx="12" cy="12" r="3.5" fill="#F59E0B"/>
-    <text x="24" y="16" fill="#FCD34D" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" letter-spacing="1">PRODUCTION READY</text>
+  <!-- Bold Strong Headline -->
+  <g transform="translate(400, 60)">
+    <text x="0" y="0" text-anchor="middle" fill="#FFFFFF" class="sketch-title" font-size="31">Working Code vs Production Code</text>
   </g>
 
-  <!-- Central Transformation Evolution: Script vs Production System -->
-  <g transform="translate(400, 230)">
-    <!-- Left: Prototype / Working Code Script Card -->
-    <g transform="translate(-180, 0)">
-      <rect x="-70" y="-55" width="140" height="110" rx="8" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5"/>
-      <circle cx="0" cy="-22" r="14" fill="rgba(255, 255, 255, 0.08)"/>
-      <text x="0" y="-17" text-anchor="middle" fill="rgba(255, 255, 255, 0.5)" font-family="'JetBrains Mono', monospace" font-size="10">DEV</text>
-      
-      <text x="0" y="16" text-anchor="middle" fill="rgba(255, 255, 255, 0.8)" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700">WORKING CODE</text>
-      <text x="0" y="34" text-anchor="middle" fill="rgba(255, 255, 255, 0.4)" font-family="'JetBrains Mono', monospace" font-size="9">Happy Path Only</text>
-    </g>
+  <!-- Comparison Table Container (X: 70 to 730, width 660, height 250, Y: 115 to 365) -->
+  <rect x="70" y="115" width="660" height="250" rx="16" fill="rgba(255, 255, 255, 0.02)" stroke="rgba(255, 255, 255, 0.25)" stroke-width="2.6"/>
 
-    <!-- Center Evolution Arrow -->
-    <g transform="translate(0, 0)">
-      <circle cx="0" cy="0" r="22" fill="#0A0A10" stroke="#F59E0B" stroke-width="1.5"/>
-      <path d="M -8 0 L 8 0 M 3 -5 L 8 0 L 3 5" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </g>
+  <!-- Vertical Column Dividers -->
+  <line x1="250" y1="115" x2="250" y2="365" stroke="rgba(255, 255, 255, 0.2)" stroke-width="2"/>
+  <line x1="490" y1="115" x2="490" y2="365" stroke="rgba(255, 255, 255, 0.2)" stroke-width="2"/>
 
-    <!-- Right: Hardened Production-Ready System -->
-    <g transform="translate(180, 0)">
-      <rect x="-70" y="-55" width="140" height="110" rx="8" fill="rgba(245, 158, 11, 0.12)" stroke="#F59E0B" stroke-width="2"/>
-      <circle cx="0" cy="-22" r="14" fill="#F59E0B"/>
-      <text x="0" y="-17" text-anchor="middle" fill="#000000" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold">PROD</text>
+  <!-- Horizontal Row Dividers -->
+  <line x1="70" y1="172" x2="730" y2="172" stroke="rgba(255, 255, 255, 0.25)" stroke-width="2.2"/>
+  <line x1="70" y1="236" x2="730" y2="236" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.6"/>
+  <line x1="70" y1="300" x2="730" y2="300" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.6"/>
 
-      <text x="0" y="16" text-anchor="middle" fill="#FFFFFF" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700">PROD READY</text>
-      <text x="0" y="34" text-anchor="middle" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="9">Telemetry • Retries</text>
-    </g>
-  </g>
+  <!-- Table Header -->
+  <text x="160" y="152" text-anchor="middle" fill="rgba(255, 255, 255, 0.55)" class="sketch-title" font-size="22">Dimension</text>
+  <text x="370" y="152" text-anchor="middle" fill="#FCD34D" class="sketch-title" font-size="25">Working Code</text>
+  <text x="610" y="152" text-anchor="middle" fill="#6EE7B7" class="sketch-title" font-size="25">Production Ready</text>
+
+  <!-- Row 1: Error Handling -->
+  <text x="160" y="210" text-anchor="middle" fill="#FFFFFF" class="sketch-title" font-size="21">Error Handling</text>
+  <text x="370" y="210" text-anchor="middle" fill="#FCA5A5" class="sketch-sub" font-size="18">console.log(err)</text>
+  <text x="610" y="210" text-anchor="middle" fill="#6EE7B7" class="sketch-sub" font-size="18">Structured Logs &amp; Alerts</text>
+
+  <!-- Row 2: Traffic Spikes -->
+  <text x="160" y="274" text-anchor="middle" fill="#FFFFFF" class="sketch-title" font-size="21">Traffic Spikes</text>
+  <text x="370" y="274" text-anchor="middle" fill="#FCA5A5" class="sketch-sub" font-size="18">Crashes &amp; Hangs</text>
+  <text x="610" y="274" text-anchor="middle" fill="#6EE7B7" class="sketch-sub" font-size="18">Rate Limits &amp; Queues</text>
+
+  <!-- Row 3: Database -->
+  <text x="160" y="338" text-anchor="middle" fill="#FFFFFF" class="sketch-title" font-size="21">Database</text>
+  <text x="370" y="338" text-anchor="middle" fill="#FCA5A5" class="sketch-sub" font-size="18">SELECT * (Unbounded)</text>
+  <text x="610" y="338" text-anchor="middle" fill="#6EE7B7" class="sketch-sub" font-size="18">Indexes &amp; Connection Pool</text>
 </svg>

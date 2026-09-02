@@ -1,83 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
   <defs>
-    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#070709"/>
-      <stop offset="50%" stop-color="#0F0D13"/>
-      <stop offset="100%" stop-color="#14100A"/>
+    <!-- Clean dark canvas gradient -->
+    <linearGradient id="canvas-bg-2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141419"/>
+      <stop offset="50%" stop-color="#0F0F13"/>
+      <stop offset="100%" stop-color="#0A0A0D"/>
     </linearGradient>
-    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.25"/>
-      <stop offset="60%" stop-color="#F59E0B" stop-opacity="0.04"/>
-      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="dot-grid2" width="24" height="24" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1" fill="rgba(255, 255, 255, 0.05)"/>
+
+    <!-- Subtle graph paper grid -->
+    <pattern id="canvas-grid-2" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="rgba(255, 255, 255, 0.04)"/>
     </pattern>
-    <filter id="soft-glow2" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-    </filter>
   </defs>
 
-  <rect width="800" height="450" fill="url(#bg2)"/>
-  <rect width="800" height="450" fill="url(#dot-grid2)"/>
-  <circle cx="400" cy="225" r="220" fill="url(#glow2)"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&amp;display=swap');
+    .sketch-title { font-family: 'Caveat', cursive, sans-serif; font-weight: 700; }
+    .sketch-sub { font-family: 'Caveat', cursive, sans-serif; font-weight: 600; }
+  </style>
 
-  <!-- Decorative Corner Brackets -->
-  <path d="M 32 48 L 32 32 L 48 32" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
-  <path d="M 768 48 L 768 32 L 752 32" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
-  <path d="M 32 402 L 32 418 L 48 418" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
-  <path d="M 768 402 L 768 418 L 752 418" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1.5" fill="none"/>
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#canvas-bg-2)"/>
+  <rect width="800" height="450" fill="url(#canvas-grid-2)"/>
 
-  <!-- Minimal Header Pill -->
-  <g transform="translate(48, 48)">
-    <rect width="146" height="24" rx="12" fill="rgba(245, 158, 11, 0.1)" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1"/>
-    <circle cx="12" cy="12" r="3.5" fill="#F59E0B"/>
-    <text x="24" y="16" fill="#FCD34D" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="600" letter-spacing="1">PRODUCTION SAFETY</text>
+  <!-- Bold Strong Headline (No tilde / negation symbol) -->
+  <g transform="translate(400, 68)">
+    <text x="0" y="0" text-anchor="middle" fill="#FFFFFF" class="sketch-title" font-size="30">Canary Deployment Architecture</text>
   </g>
 
-  <!-- Central Diagram: Zero-Downtime Safe Pipeline Graphic -->
-  <g transform="translate(400, 235)">
-    <!-- Central Shield / Security Perimeter -->
-    <circle cx="0" cy="0" r="140" fill="none" stroke="rgba(245, 158, 11, 0.15)" stroke-width="1" stroke-dasharray="6,4"/>
-    <circle cx="0" cy="0" r="95" fill="rgba(10, 10, 15, 0.85)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
+  <!-- ================= MAIN CANARY ARCHITECTURE FLOW ================= -->
 
-    <!-- Dual Canary Pipeline Orbit Tracks -->
-    <!-- Track 1: Blue/Old Version (Smoothly draining) -->
-    <path d="M -220 -45 C -120 -45 -100 -20 0 -20 C 100 -20 120 -45 220 -45" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="2" stroke-dasharray="4,4"/>
-    
-    <!-- Track 2: Green/Canary Version (Active Safe Flow) -->
-    <path d="M -220 45 C -120 45 -100 20 0 20 C 100 20 120 45 220 45" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+  <!-- Left: Live Traffic Source (Larger Box) -->
+  <g transform="translate(180, 245)">
+    <rect x="-90" y="-60" width="180" height="120" rx="14" fill="rgba(245, 158, 11, 0.06)" stroke="#F59E0B" stroke-width="2.5"/>
+    <text x="0" y="-8" text-anchor="middle" fill="#FFFFFF" class="sketch-title" font-size="29">Live Traffic</text>
+    <text x="0" y="24" text-anchor="middle" fill="#FCD34D" class="sketch-sub" font-size="18">100% Ingress</text>
+  </g>
 
-    <!-- Central Safety Nexus -->
-    <circle cx="0" cy="0" r="48" fill="rgba(245, 158, 11, 0.15)" stroke="#F59E0B" stroke-width="2"/>
-    <polygon points="0,-22 20,-6 14,18 -14,18 -20,-6" fill="rgba(245, 158, 11, 0.25)" stroke="#FCD34D" stroke-width="1.5"/>
-    <!-- Checkmark -->
-    <path d="M -8 0 L -2 6 L 8 -4" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Top Branch Arrow: 90% to Stable -->
+  <g transform="translate(270, 235)">
+    <path d="M 0 -10 C 65 -30, 140 -65, 205 -75" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+    <polygon points="205,-75 193,-81 195,-75 193,-69" fill="#10B981"/>
+    <text x="100" y="-55" text-anchor="middle" fill="#6EE7B7" class="sketch-sub" font-size="20">90%</text>
+  </g>
 
-    <!-- Left Source Node: Inbound Traffic Gateway -->
-    <g transform="translate(-220, 0)">
-      <circle cx="0" cy="0" r="32" fill="#0E0E14" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5"/>
-      <circle cx="0" cy="0" r="6" fill="#F59E0B" filter="url(#soft-glow2)"/>
-      <text x="0" y="48" text-anchor="middle" fill="rgba(255, 255, 255, 0.6)" font-family="'JetBrains Mono', monospace" font-size="11">GATEWAY</text>
-    </g>
+  <!-- Top Right Box: Stable Production Cluster (Larger Box) -->
+  <g transform="translate(585, 160)">
+    <rect x="-105" y="-57" width="210" height="114" rx="14" fill="rgba(16, 185, 129, 0.08)" stroke="#10B981" stroke-width="2.6"/>
+    <text x="0" y="-8" text-anchor="middle" fill="#FFFFFF" class="sketch-title" font-size="29">Stable v1.0</text>
+    <text x="0" y="24" text-anchor="middle" fill="#6EE7B7" class="sketch-sub" font-size="18">Healthy &amp; Verified</text>
+  </g>
 
-    <!-- Right Destination Node: Live Production Cluster -->
-    <g transform="translate(220, 0)">
-      <circle cx="0" cy="0" r="32" fill="#0E0E14" stroke="#10B981" stroke-width="1.5"/>
-      <circle cx="0" cy="0" r="6" fill="#10B981" filter="url(#soft-glow2)"/>
-      <text x="0" y="48" text-anchor="middle" fill="#10B981" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="600">ZERO DOWNTIME</text>
-    </g>
+  <!-- Bottom Branch Arrow: 10% to Canary -->
+  <g transform="translate(270, 255)">
+    <path d="M 0 10 C 65 30, 140 65, 205 75" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+    <polygon points="205,75 193,69 195,75 193,81" fill="#F59E0B"/>
+    <text x="100" y="68" text-anchor="middle" fill="#FCD34D" class="sketch-sub" font-size="20">10%</text>
+  </g>
 
-    <!-- Top & Bottom Telemetry Badges -->
-    <g transform="translate(0, -115)">
-      <rect x="-80" y="-12" width="160" height="24" rx="4" fill="#08080C" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1"/>
-      <text x="0" y="4" text-anchor="middle" fill="rgba(255, 255, 255, 0.7)" font-family="'JetBrains Mono', monospace" font-size="10">EXPAND ➔ CONTRACT</text>
-    </g>
-
-    <g transform="translate(0, 115)">
-      <rect x="-80" y="-12" width="160" height="24" rx="4" fill="#08080C" stroke="rgba(245, 158, 11, 0.3)" stroke-width="1"/>
-      <text x="0" y="4" text-anchor="middle" fill="#FCD34D" font-family="'JetBrains Mono', monospace" font-size="10">CANARY VALIDATED</text>
-    </g>
+  <!-- Bottom Right Box: Canary Test Cluster (Larger Box) -->
+  <g transform="translate(585, 330)">
+    <rect x="-105" y="-57" width="210" height="114" rx="14" fill="rgba(245, 158, 11, 0.06)" stroke="#F59E0B" stroke-width="2.5"/>
+    <text x="0" y="-8" text-anchor="middle" fill="#FFFFFF" class="sketch-title" font-size="29">Canary v1.1</text>
+    <text x="0" y="24" text-anchor="middle" fill="#FCD34D" class="sketch-sub" font-size="18">Telemetry Watch</text>
   </g>
 </svg>

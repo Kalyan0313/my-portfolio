@@ -2,6 +2,182 @@ import type { Project } from '../types';
 
 export const projectsData: Project[] = [
   {
+    id: 'exam-prep-ai',
+    title: 'ExamPrep AI',
+    tagline: 'AI-Powered Active Recall & Dynamic MCQ Generation Platform',
+    badge: 'AI & Full-Stack Platform',
+    image: '/images/exam-prep-ai.jpg',
+    featured: true,
+    shortDescription:
+      'A full-stack exam preparation platform built for government exam aspirants (UPSC, SSC, Railways) that turns study material into fresh, non-repetitive MCQs on demand with smart concept retry, document parsing, and file-tree organization.',
+    technologies: [
+      'Next.js 14',
+      'TypeScript',
+      'Node.js',
+      'Express',
+      'MongoDB',
+      'Mongoose',
+      'Google Gemini',
+      'Zustand',
+      'TanStack Query',
+      'Tailwind CSS',
+      'JWT',
+      'Multer'
+    ],
+    highlights: [
+      'Transforms study materials (typed text, PDF, DOCX) into dynamic MCQs (5–50 questions) across customizable difficulty levels.',
+      'Features an intelligent retry engine that generates reframed questions targeting the same missed concepts rather than repeating identical questions.',
+      'Integrated multi-tier AI pipeline using Google Gemini 2.5 Flash Lite as primary with OpenRouter (Qwen, DeepSeek, Llama) failover fallback.',
+      'Built document ingestion pipeline supporting PDF and DOCX uploads using pdf-parse, mammoth, and Multer.',
+      'Structured knowledge management with an Obsidian-like file tree organizing folders by subjects and nested chapters.',
+      'Provides detailed per-question explanations, question bookmarking, and analytics tracking accuracy trends, streaks, and weak topics.'
+    ],
+    githubUrl: 'https://github.com/ZairoXcode/ExamPrep_AI',
+    liveUrl: 'https://exam-prep-ai-amber.vercel.app/',
+    caseStudy: {
+      overview:
+        'ExamPrep AI is a full-stack active recall platform built to solve passive studying for competitive examination aspirants (UPSC, SSC, Railways, State PSCs). Instead of repeatedly re-reading or memorizing static answer keys, users upload or paste study materials to generate dynamic, non-repetitive MCQs with instant scoring, concept-level retries, and comprehensive performance analytics.',
+      problem:
+        'Most exam preparation revolves around passive note reading or static test series with fixed question banks. Once solved, students memorize specific answer options rather than understanding the underlying concepts. Furthermore, unstructured study notes across multiple subjects lead to fragmented revision without measurable feedback on weak areas.',
+      goals: [
+        'Enable dynamic MCQ generation directly from unstructured text, PDF, and DOCX documents with custom question counts (5–50) and difficulty levels.',
+        'Implement an active-recall retry mechanism that generates reframed questions on failed concepts instead of repeating identical questions.',
+        'Architect a resilient AI generation pipeline with primary Gemini 2.5 Flash Lite and OpenRouter fallback to handle rate limits and quota exhaustions.',
+        'Design an Obsidian-inspired file-tree workspace for hierarchical subject and chapter organization.',
+        'Deliver real-time feedback with detailed explanations, question bookmarking, and longitudinal accuracy tracking.'
+      ],
+      systemArchitecture: {
+        title: 'Multi-Tier Document Ingestion & AI Generation Pipeline',
+        description:
+          'The frontend built on Next.js 14 utilizes Zustand and TanStack Query for optimistic updates and caching. The Express backend handles document uploads via Multer, extracts raw text using pdf-parse and mammoth, and dispatches structured prompts to the AI layer (Gemini 2.5 Flash Lite with OpenRouter failover). Parsed questions, user responses, quiz history, and hierarchical folder trees are persisted in MongoDB.',
+        diagramDescription:
+          'Next.js 14 Frontend -> REST API Gateway -> Document Parser (pdf-parse / mammoth) -> AI Generation Engine (Gemini 2.5 Flash Lite / OpenRouter Fallback) -> MongoDB (Subjects, Chapters, Quizzes, Bookmarks, Analytics)'
+      },
+      technicalDecisions: [
+        {
+          topic: 'Multi-LLM Fallback Architecture',
+          choice: 'Gemini 2.5 Flash Lite primary with OpenRouter (Qwen/DeepSeek/Llama) secondary fallback',
+          reason:
+            'Gemini 2.5 Flash Lite provides rapid inference and low latency for structured JSON generation, while OpenRouter failover prevents service disruptions when rate limits or provider outages occur.',
+          alternativesConsidered: 'Relying exclusively on a single proprietary AI API.'
+        },
+        {
+          topic: 'Frontend State Management',
+          choice: 'Zustand + TanStack Query',
+          reason:
+            'TanStack Query provides robust server-state caching and deduplication for quiz results and file trees, while Zustand manages transient client state such as active quiz timers and selected answers.',
+          alternativesConsidered: 'Prop-drilling or monolithic Redux Toolkit setup.'
+        },
+        {
+          topic: 'Document Parsing Pipeline',
+          choice: 'In-memory buffer streaming with pdf-parse and mammoth',
+          reason:
+            'Parsing uploaded PDFs and DOCX files directly from memory buffers avoids unnecessary disk I/O overhead and speeds up the question generation workflow.',
+          alternativesConsidered: 'Persisting raw document files on disk before background worker extraction.'
+        },
+        {
+          topic: 'Hierarchical Workspace Modeling',
+          choice: 'Self-referencing recursive folder/chapter schema in MongoDB',
+          reason:
+            'Enables an Obsidian-like nested file tree where users can organize arbitrary subject hierarchies with indexed parentId lookups.',
+          alternativesConsidered: 'Flat tagging system without nested hierarchy.'
+        }
+      ],
+      databaseDesign: {
+        overview:
+          'MongoDB models represent users, hierarchical folders/chapters, generated quizzes, user attempts, bookmarks, and performance telemetry.',
+        modelsOrEntities: [
+          {
+            name: 'User',
+            description:
+              'Stores user profile, authentication credentials (JWT), streaks, and global preferences.'
+          },
+          {
+            name: 'Folder & Chapter',
+            description:
+              'Hierarchical workspace nodes storing subject folders, chapter contents, and nested hierarchy references.'
+          },
+          {
+            name: 'Quiz & Question',
+            description:
+              'Stores generated questions, options, correct answer keys, detailed explanations, and source material embeddings.'
+          },
+          {
+            name: 'Attempt & Performance',
+            description:
+              'Records user quiz submissions, per-question correctness, response times, and accuracy telemetry.'
+          },
+          {
+            name: 'Bookmark',
+            description:
+              'Maintains user-saved questions with tags and custom notes for targeted revision.'
+          }
+        ]
+      },
+      apiAndRealtime: {
+        overview:
+          'REST API endpoints managing document ingestion, AI question generation, quiz grading, bookmarking, and analytics.',
+        endpointsOrEvents: [
+          {
+            type: 'REST',
+            name: 'POST /api/quizzes/generate',
+            description:
+              'Accepts chapter text or file upload, generates structured MCQs using Gemini/OpenRouter, and returns the interactive quiz.'
+          },
+          {
+            type: 'REST',
+            name: 'POST /api/quizzes/retry-failed',
+            description:
+              'Takes missed question IDs, identifies underlying concepts, and generates new reframed questions.'
+          },
+          {
+            type: 'REST',
+            name: 'POST /api/quizzes/:id/submit',
+            description:
+              'Submits user answers, calculates scores, persists attempts, and updates topic mastery statistics.'
+          },
+          {
+            type: 'REST',
+            name: 'GET /api/workspace/tree',
+            description:
+              'Retrieves the complete hierarchical subject and chapter folder tree for the user.'
+          },
+          {
+            type: 'REST',
+            name: 'POST /api/bookmarks/toggle',
+            description:
+              'Bookmarks or unbookmarks a specific question for spaced repetition revision.'
+          }
+        ]
+      },
+      challengesAndSolutions: [
+        {
+          challenge: 'AI Hallucinations and Malformed JSON Response Parsing',
+          solution:
+            'Enforced strict JSON schema output formatting in prompt instructions combined with Zod validation and retry parsing wrappers to ensure 100% compliant question objects.',
+          result: 'Eliminated quiz rendering crashes caused by invalid LLM response structures.'
+        },
+        {
+          challenge: 'Handling Rate Limits & Quota Exhaustion During Peak Usage',
+          solution:
+            'Implemented an automatic circuit-breaker fallback to OpenRouter models (Qwen, DeepSeek, Llama) when Gemini requests encounter 429 or 5xx status codes.',
+          result: 'Maintained 99.9% availability for quiz generation even during upstream quota limits.'
+        },
+        {
+          challenge: 'Concept-Level Retries vs Repetitive Question Memorization',
+          solution:
+            'Extracted concept summaries from missed questions and engineered targeted prompts that generate alternative scenarios testing the exact same principle.',
+          result: 'Boosted genuine active recall and prevented artificial score inflation from answer memorization.'
+        }
+      ],
+      tradeOffsAndLearnings: [
+        'Prompt Engineering with Few-Shot Examples: Providing concrete JSON examples in system prompts significantly reduced output drift compared to verbose instructions alone.',
+        'Client-Side Optimistic Grading: Calculating immediate score previews while syncing results in the background created a zero-latency quiz submission experience.',
+        'Balancing Token Costs with Question Depth: Chunking long chapters into semantic sections improved MCQ relevance while keeping LLM token consumption efficient.'
+      ]
+    }
+  },
+  {
     id: 'jpm-store',
     title: 'JPM STORE',
     tagline: 'Full-Stack E-Commerce Platform with Secure Backend Architecture',
