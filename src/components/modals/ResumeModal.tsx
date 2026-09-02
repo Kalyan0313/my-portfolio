@@ -136,7 +136,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 </>
               )}
               <span>•</span>
-              <span>github.com/Kalyan0313</span>
+              <span>github.com/ZairoXcode</span>
               <span>•</span>
               <span>linkedin.com/in/kalyan-mahato-366444244</span>
               <span>•</span>

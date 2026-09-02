@@ -47,7 +47,7 @@ export const GithubSection: React.FC = () => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <a
-              href="https://github.com/Kalyan0313"
+              href="https://github.com/ZairoXcode"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"
@@ -66,7 +66,7 @@ export const GithubSection: React.FC = () => {
                 textAlign: 'center'
               }}
             >
-              @Kalyan0313 on GitHub
+              @ZairoXcode on GitHub
             </span>
           </div>
         </div>

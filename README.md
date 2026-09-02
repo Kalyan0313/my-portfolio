@@ -14,7 +14,7 @@
 
 **Building Scalable Distributed Systems & High-Throughput Web Architectures**
 
-[Live Portfolio (kalyanbuilds.site)](https://kalyanbuilds.site/) • [View GitHub](https://github.com/Kalyan0313) • [Connect on LinkedIn](https://linkedin.com/in/kalyan-mahato-366444244) • [Email Me](mailto:mahatokalyan2@gmail.com)
+[Live Portfolio (kalyanbuilds.site)](https://kalyanbuilds.site/) • [View GitHub](https://github.com/ZairoXcode) • [Connect on LinkedIn](https://linkedin.com/in/kalyan-mahato-366444244) • [Email Me](mailto:mahatokalyan2@gmail.com)
 
 </div>
 
@@ -116,7 +116,7 @@ my-portfolio/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Kalyan0313/my-portfolio.git
+   git clone https://github.com/ZairoXcode/my-portfolio.git
    cd my-portfolio
    ```
 
@@ -150,7 +150,7 @@ my-portfolio/
 - **Location**: Bangalore, India
 - **Email**: [mahatokalyan2@gmail.com](mailto:mahatokalyan2@gmail.com)
 - **Phone**: [+91 9641072290](tel:+919641072290)
-- **GitHub**: [github.com/Kalyan0313](https://github.com/Kalyan0313)
+- **GitHub**: [github.com/ZairoXcode](https://github.com/ZairoXcode)
 - **LinkedIn**: [linkedin.com/in/kalyan-mahato-366444244](https://linkedin.com/in/kalyan-mahato-366444244)
 
 ---

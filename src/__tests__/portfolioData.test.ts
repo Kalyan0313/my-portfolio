@@ -7,7 +7,7 @@ describe('Portfolio Core Data Integrity', () => {
     expect(profileData.name).toBe('Kalyan Mahato');
     expect(profileData.location).toBe('Bengaluru, India');
     expect(profileData.email).toBe('mahatokalyan2@gmail.com');
-    expect(profileData.github).toBe('https://github.com/Kalyan0313');
+    expect(profileData.github).toBe('https://github.com/ZairoXcode');
     expect(profileData.linkedin).toContain('kalyan-mahato');
   });
 

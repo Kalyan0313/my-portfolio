@@ -206,7 +206,7 @@ export const projectsData: Project[] = [
       'Implemented structured logging and centralized error handling for easier debugging and maintenance.',
       'Built product, cart, order, and inventory workflows with a responsive Next.js frontend.'
     ],
-    githubUrl: 'https://github.com/Kalyan0313/jpm-store',
+    githubUrl: 'https://github.com/ZairoXcode/jpm-store',
     liveUrl: 'https://jpm-store.vercel.app/',
     caseStudy: {
       overview:
@@ -368,7 +368,7 @@ export const projectsData: Project[] = [
       'Automated Razorpay subscription billing, trial periods, and webhook-driven state synchronization.',
       'Support ticket resolution system for administrative dispute management.'
     ],
-    githubUrl: 'https://github.com/Kalyan0313',
+    githubUrl: 'https://github.com/ZairoXcode',
     liveUrl: '#',
     caseStudy: {
       overview:
@@ -527,7 +527,7 @@ export const projectsData: Project[] = [
       'Integrated Razorpay transaction flow with automated booking confirmation and ticket generation upon payment capture.',
       'Implemented defensive error recovery and fallback mechanisms for volatile airline seat availability and pricing shifts.'
     ],
-    githubUrl: 'https://github.com/Kalyan0313',
+    githubUrl: 'https://github.com/ZairoXcode',
     liveUrl: '#',
     caseStudy: {
       overview:
@@ -653,7 +653,7 @@ export const projectsData: Project[] = [
       'Designed administrative catalog management workflow for managing SKUs, categories, and inventory counts.',
       'Optimized image delivery, font loading, and page hydration for near-instant navigation speeds.'
     ],
-    githubUrl: 'https://github.com/Kalyan0313',
+    githubUrl: 'https://github.com/ZairoXcode',
     liveUrl: '#',
     caseStudy: {
       overview:
@@ -760,7 +760,7 @@ export const projectsData: Project[] = [
       'Implemented socket authentication middleware verifying JWT credentials during connection handshakes.',
       'Created optimistic UI messaging with automatic retry queues on temporary network disconnects.'
     ],
-    githubUrl: 'https://github.com/Kalyan0313',
+    githubUrl: 'https://github.com/ZairoXcode',
     liveUrl: '#',
     caseStudy: {
       overview:

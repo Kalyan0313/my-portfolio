@@ -57,7 +57,7 @@ export const profileData: Profile = {
     'Docker'
   ],
 
-  github: 'https://github.com/Kalyan0313',
+  github: 'https://github.com/ZairoXcode',
 
   linkedin: 'https://linkedin.com/in/kalyan-mahato-366444244',
 

@@ -238,7 +238,7 @@ export const Contact: React.FC<ContactProps> = ({
                 transition: "color 0.2s",
               }}
             >
-              github.com/Kalyan0313
+              github.com/ZairoXcode
             </a>
           </div>
 
